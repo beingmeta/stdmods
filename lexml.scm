@@ -5,7 +5,7 @@
 
 ;;; Implements handling of custom lexicons in lexml
 
-(use-module '{fdweb texttools tagger})
+(use-module '{webtools texttools tagger})
 
 (define-init %loglevel 5)
 

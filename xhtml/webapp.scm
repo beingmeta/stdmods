@@ -8,7 +8,7 @@
 
 (define version "$Id$")
 
-(use-module '{fdweb xhtml texttools reflection})
+(use-module '{webtools xhtml texttools reflection})
 (use-module '{varconfig rulesets logger})
 (use-module '{xhtml/auth xhtml/openid})
 

@@ -3,7 +3,7 @@
 
 (in-module 'checkurl)
 
-(use-module '{fdweb xhtml reflection texttools})
+(use-module '{webtools xhtml reflection texttools})
 (use-module '{varconfig stringfmts logger})
 (use-module '{twilio aws/ses})
 (define %used_modules '{varconfig})

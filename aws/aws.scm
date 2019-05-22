@@ -4,7 +4,7 @@
 ;;; Core file for accessing Amazon Web Services
 (in-module 'aws)
 
-(use-module '{logger opts texttools fdweb gpath regex varconfig})
+(use-module '{logger opts texttools webtools gpath regex varconfig})
 
 (define-init %loglevel %notice%)
 

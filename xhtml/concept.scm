@@ -8,7 +8,7 @@
 
 (define version "$Id$")
 
-(use-module '{fdweb texttools xhtml xhtml/brico xhtml/beingmeta})
+(use-module '{webtools texttools xhtml xhtml/brico xhtml/beingmeta})
 (use-module '{brico brico/lookup brico/dterms brico/wikipedia})
 
 (define (uri-kludge s)

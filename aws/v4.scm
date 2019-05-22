@@ -3,7 +3,7 @@
 
 (in-module 'aws/v4)
 
-(use-module '{aws opts fdweb texttools logger varconfig curlcache})
+(use-module '{aws opts webtools texttools logger varconfig curlcache})
 (define %used_modules '{aws varconfig})
 
 (define-init %loglevel %notice%)

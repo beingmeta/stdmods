@@ -3,7 +3,7 @@
 
 (in-module 'domutils/cleanup)
 
-(use-module '{fdweb xhtml texttools reflection ezrecords logger varconfig
+(use-module '{webtools xhtml texttools reflection ezrecords logger varconfig
 	      domutils domutils/styles})
 
 (define-init %loglevel %warning%)

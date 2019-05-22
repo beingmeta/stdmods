@@ -5,7 +5,7 @@
 
 ;;; Provides access to RSS feeds with automatic caching and intervals.
 
-(use-module '{fdweb texttools varconfig parsetime})
+(use-module '{webtools texttools varconfig parsetime})
 
 (define rss-cache (make-hashtable))
 (define rss-caches (make-hashtable))

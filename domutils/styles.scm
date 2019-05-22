@@ -4,7 +4,7 @@
 ;;; Utilites for indexing XML content, especially XHTML
 (in-module 'domutils/styles)
 
-(use-module '{reflection fdweb xhtml texttools domutils varconfig logger})
+(use-module '{reflection webtools xhtml texttools domutils varconfig logger})
 
 (module-export! '{css/dropdecimals css/roundpixels css/relfonts
 		  dom/normstyle dom/gather-styles!

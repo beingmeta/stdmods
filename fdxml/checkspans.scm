@@ -8,7 +8,7 @@
 
 (in-module 'fdxml/checkspans)
 
-(use-module '{texttools fdweb xhtml})
+(use-module '{texttools webtools xhtml})
 
 (module-export! '{checkbox checkspan span.checkspan div.checkspan p.checkspan})
 

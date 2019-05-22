@@ -3,7 +3,7 @@
 
 (in-module 'twitter)
 
-(use-module '{fdweb texttools reflection varconfig parsetime logger})
+(use-module '{webtools texttools reflection varconfig parsetime logger})
 (use-module '{xhtml xhtml/auth oauth xconfig})
 
 (module-export! '{twitter/creds twitter/limits twitter-root})

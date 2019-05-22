@@ -3,7 +3,7 @@
 
 (in-module 'hostinfo)
 
-(use-module '{fdweb jsonout})
+(use-module '{webtools jsonout})
 
 (module-export! '{hostinfo/json hostinfo/field hostinfo})
 

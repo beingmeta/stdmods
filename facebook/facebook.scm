@@ -5,7 +5,7 @@
 
 ;;; Basic access to facebook, including authorization
 
-(use-module '{fdweb texttools reflection varconfig logger})
+(use-module '{webtools texttools reflection varconfig logger})
 (use-module '{xhtml xhtml/auth facebook/fbcall})
 
 (define-init %loglevel %notice%)

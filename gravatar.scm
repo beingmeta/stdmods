@@ -3,7 +3,7 @@
 
 (in-module 'gravatar)
 
-(use-module '{fdweb texttools})
+(use-module '{webtools texttools})
 
 (module-export!
  '{gravatar/hash gravatar/image

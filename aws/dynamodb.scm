@@ -3,6 +3,6 @@
 
 (in-module 'aws/dynamodb)
 
-(use-module '{aws fdweb texttools logger varconfig})
+(use-module '{aws webtools texttools logger varconfig})
 (define %used_modules '{aws varconfig})
 

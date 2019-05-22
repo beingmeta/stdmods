@@ -3,7 +3,7 @@
 
 (in-module 'finder)
 
-(use-module '{fdweb texttools varconfig regex logger})
+(use-module '{webtools texttools varconfig regex logger})
 
 (module-export! '{finder})
 

@@ -3,7 +3,7 @@
 
 (in-module 'ximage)
 
-(use-module '{fdweb texttools imagick gpath aws/s3 opts
+(use-module '{webtools texttools imagick gpath aws/s3 opts
 	      reflection varconfig logger})
 
 (define-init %loglevel %notice%)

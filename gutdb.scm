@@ -2,7 +2,7 @@
 
 (in-module 'gutdb)
 
-(use-module '{texttools fdweb logger domutils domutils/index varconfig})
+(use-module '{texttools webtools logger domutils domutils/index varconfig})
 
 (define-init %loglevel %notify%)
 

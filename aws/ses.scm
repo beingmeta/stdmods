@@ -5,7 +5,7 @@
 
 (module-export! '{ses/call ses/rawcall ses/sendmail ses/send})
 
-(use-module '{aws fdweb texttools mimeout logger email varconfig})
+(use-module '{aws webtools texttools mimeout logger email varconfig})
 (define %used_modules '{aws})
 
 (define-init %loglevel %notice%)

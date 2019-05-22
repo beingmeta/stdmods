@@ -6,7 +6,7 @@
 
 (use-module '{reflection texttools})
 (use-module '{xtags}) ;; brico brico/dterms
-(use-module '{fdweb xhtml xhtml/clickit i18n xhtml/brico xhtml/beingmeta})
+(use-module '{webtools xhtml xhtml/clickit i18n xhtml/brico xhtml/beingmeta})
 
 (define small-oid-icon
   (stringout bmstatic "graphics/diamond12.png"))

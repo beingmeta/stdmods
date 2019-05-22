@@ -15,7 +15,7 @@
 (module-export! '{sdb/domains sdb/domains/new
 		  sdb/domain/info sdb/domain/drop!})
 
-(use-module '{aws fdweb texttools logger fdweb varconfig jsonout rulesets})
+(use-module '{aws webtools texttools logger webtools varconfig jsonout rulesets})
 
 (define-init %loglevel %notice%)
 

@@ -5,7 +5,7 @@
 
 ;;; Tools for output of knodules and dterms in XHTML
 
-(use-module '{texttools ezrecords varconfig fdweb xhtml xhtml/clickit})
+(use-module '{texttools ezrecords varconfig webtools xhtml xhtml/clickit})
 
 (use-module 'knodules)
 

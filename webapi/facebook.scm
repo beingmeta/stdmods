@@ -6,7 +6,7 @@
 ;;; This implements simple access to the Facebook API
 ;;;  Basically replaced by the directory-based facebook module
 
-(use-module '{ezrecords fdweb texttools})
+(use-module '{ezrecords webtools texttools})
 
 ;; Not currently used
 (defrecord facepp appid apikey secretkey)

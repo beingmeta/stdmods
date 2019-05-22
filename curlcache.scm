@@ -3,7 +3,7 @@
 
 (in-module 'curlcache)
 
-(use-module '{fdweb varconfig logger})
+(use-module '{webtools varconfig logger})
 (define %used_modules '{varconfig xhtml/auth})
 
 (define-init curlcache-default #t)

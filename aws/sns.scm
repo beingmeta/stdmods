@@ -3,7 +3,7 @@
 
 (in-module 'aws/sns)
 
-(use-module '{aws aws/v4 texttools logger fdweb varconfig})
+(use-module '{aws aws/v4 texttools logger webtools varconfig})
 (define %used_modules '{aws varconfig})
 
 (define-init %loglevel %warn%)

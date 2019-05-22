@@ -5,7 +5,7 @@
 
 (in-module 'xhtml/openid)
 
-(use-module '{texttools fdweb xhtml xhtml/clickit domutils varconfig logger})
+(use-module '{texttools webtools xhtml xhtml/clickit domutils varconfig logger})
 (define %used_modules '{varconfig})
 
 (define-init %loglevel %notify%)

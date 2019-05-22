@@ -3,7 +3,7 @@
 
 (in-module 'email)
 
-(use-module '{fdweb texttools varconfig logger})
+(use-module '{webtools texttools varconfig logger})
 
 (module-export!
  '{email/pattern email/ok? email/std email/hash email/host email/name})

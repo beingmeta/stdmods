@@ -3,7 +3,7 @@
 
 (in-module 'twilio)
 
-(use-module '{fdweb texttools varconfig logger})
+(use-module '{webtools texttools varconfig logger})
 
 (module-export! '{twilio/send smsout sms/display sms/norm})
 

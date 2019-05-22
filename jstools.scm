@@ -2,7 +2,7 @@
 
 (in-module 'jstools)
 
-(use-module '{fdweb texttools})
+(use-module '{webtools texttools})
 
 (module-export! '{javascript/refpat javascript/defpat
 		  javascript/files javascript/source

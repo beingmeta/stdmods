@@ -4,7 +4,7 @@
 ;;; Core file for accessing Dropbox
 (in-module 'dropbox)
 
-(use-module '{fdweb xhtml signature oauth varconfig
+(use-module '{webtools xhtml signature oauth varconfig
 	      gpath texttools mimetable ezrecords
 	      logger})
 

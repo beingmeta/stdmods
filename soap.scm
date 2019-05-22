@@ -5,7 +5,7 @@
 
 ;;; Wrappers and parsersfor SOAP requests
 
-(use-module 'fdweb)
+(use-module 'webtools)
 
 (module-export! '{emit-soap-xml soap/call})
 

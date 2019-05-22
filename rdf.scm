@@ -2,7 +2,7 @@
 
 (in-module 'rdf)
 
-(use-module '{fdweb xhtml xhtml/brico texttools reflection domutils})
+(use-module '{webtools xhtml xhtml/brico texttools reflection domutils})
 (use-module '{brico brico/lookup brico/dterms})
 
 (module-export! '->rdf)

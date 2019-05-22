@@ -3,7 +3,7 @@
 
 (in-module 'signature)
 
-(use-module '{fdweb texttools packetfns})
+(use-module '{webtools texttools packetfns})
 (use-module '{varconfig logger})
 (define %used_modules 'varconfig)
 

@@ -3,7 +3,7 @@
 
 (in-module 'domutils)
 
-(use-module '{fdweb texttools reflection ezrecords
+(use-module '{webtools texttools reflection ezrecords
 	      varconfig logger})
 
 (define %used_modules '{varconfig ezrecords})

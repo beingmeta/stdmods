@@ -7,7 +7,7 @@
 ;;;  Designed to work with a full-text inverted index
 ;;;   like those produced by textindex
 
-(use-module '{texttools fdweb ezrecords varconfig})
+(use-module '{texttools webtools ezrecords varconfig})
 (use-module '{knodules})
 
 (module-export!

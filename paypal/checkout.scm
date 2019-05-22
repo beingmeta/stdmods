@@ -4,7 +4,7 @@
 
 ;;; Connects with Paypal
 
-(use-module '{fdweb xhtml texttools jsonout ezrecords oauth
+(use-module '{webtools xhtml texttools jsonout ezrecords oauth
 	      parsetime varconfig logger opts})
 (use-module 'paypal)
 

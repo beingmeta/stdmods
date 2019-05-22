@@ -1,2 +1,4 @@
-# framers-modules
-These are the default scheme modules bundled with FramerD.
+# sourcemodules
+
+These are a collection of scheme modules bundled (by default) with the KNO plaform.
+

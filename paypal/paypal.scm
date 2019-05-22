@@ -4,7 +4,7 @@
 
 ;;; Connects with Paypal
 
-(use-module '{fdweb xhtml texttools ezrecords parsetime logger varconfig})
+(use-module '{webtools xhtml texttools ezrecords parsetime logger varconfig})
 
 (define-init %loglevel %notify%)
 

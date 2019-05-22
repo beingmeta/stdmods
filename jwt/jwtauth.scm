@@ -3,7 +3,7 @@
 
 (in-module 'jwt/auth)
 
-(use-module '{fdweb texttools jwt})
+(use-module '{webtools texttools jwt})
 (use-module '{varconfig logger crypto ezrecords})
 (define %used_modules '{varconfig ezrecords})
 

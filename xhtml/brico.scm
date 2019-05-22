@@ -4,7 +4,7 @@
 (in-module 'xhtml/brico)
 
 (use-module '{reflection texttools})
-(use-module '{fdweb xhtml xhtml/clickit i18n})
+(use-module '{webtools xhtml xhtml/clickit i18n})
 (use-module '{brico brico/dterms brico/analytics})
 
 ;; We use these for languages (at least)

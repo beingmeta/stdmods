@@ -3,7 +3,7 @@
 
 (in-module 'jsonsubst)
 
-(use-module '{texttools fdweb})
+(use-module '{texttools webtools})
 
 (module-export! '{json/subst})
 

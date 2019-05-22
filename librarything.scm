@@ -4,7 +4,7 @@
 
 ;;; Provides access to the LibraryThing API
 
-(use-module '{fdweb varconfig texttools ezrecords parsetime logger})
+(use-module '{webtools varconfig texttools ezrecords parsetime logger})
 
 (module-export! '{lt/call lt/minimize lt/nohistory lt/getwork})
 

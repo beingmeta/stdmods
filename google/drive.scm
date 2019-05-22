@@ -4,10 +4,10 @@
 ;;; Core file for accessing Amazon Web Services
 (in-module 'google/drive)
 
-(use-module '{fdweb oauth varconfig})
+(use-module '{webtools oauth varconfig})
 (use-module 'google)
 
-(use-module '{google fdweb texttools mimetable logger ezrecords oauth})
+(use-module '{google webtools texttools mimetable logger ezrecords oauth})
 
 (define (gdrive-string loc (auth))
   (set! auth (gdrive-auth loc))

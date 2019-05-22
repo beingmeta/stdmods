@@ -5,7 +5,7 @@
 
 ;;; Access to Amazon Associates functions
 
-(use-module '{fdweb texttools})
+(use-module '{webtools texttools})
 
 (module-export! '{aauri aaitems})
 

@@ -6,7 +6,7 @@
 (use-module '{logger logctl})
 (define %loglevel %notify%)
 
-(use-module '{fdweb texttools mimetable regex 
+(use-module '{webtools texttools mimetable regex 
 	      findpath gpath varconfig})
 (use-module '{aws aws/v4})
 

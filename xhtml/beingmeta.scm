@@ -3,7 +3,7 @@
 
 (in-module 'xhtml/beingmeta)
 
-(use-module '{fdweb xhtml varconfig})
+(use-module '{webtools xhtml varconfig})
 
 ;;; Various beingmeta related logotypes, etc.
 

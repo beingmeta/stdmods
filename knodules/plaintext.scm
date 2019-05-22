@@ -5,7 +5,7 @@
 
 ;;; Parser for the plaintext knodule encoding
 
-(use-module '{texttools fdweb ezrecords logger varconfig})
+(use-module '{texttools webtools ezrecords logger varconfig})
 (use-module '{knodules knodules/drules})
 
 (define-init %loglevel %warn%)

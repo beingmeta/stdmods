@@ -4,5 +4,5 @@
 ;;; Core file for accessing Amazon Web Services
 (in-module 'google)
 
-(use-module '{fdweb oauth varconfig})
+(use-module '{webtools oauth varconfig})
 

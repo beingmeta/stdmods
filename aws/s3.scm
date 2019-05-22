@@ -3,7 +3,7 @@
 
 (in-module 'aws/s3)
 
-(use-module '{aws aws/v4 fdweb texttools mimetable regex logctl
+(use-module '{aws aws/v4 webtools texttools mimetable regex logctl
 	      ezrecords rulesets logger varconfig meltcache
 	      curlcache mttools})
 (define %used_modules '{aws varconfig ezrecords rulesets})

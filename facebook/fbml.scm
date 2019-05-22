@@ -5,7 +5,7 @@
 
 ;;; Outputting FBML (FaceBook Markup Language)
 
-(use-module '{fdweb xhtml})
+(use-module '{webtools xhtml})
 
 (define (fb:name (id #f))
   (if id (xmlelt "fb:name" 'uid (stringout id))

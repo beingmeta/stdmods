@@ -5,7 +5,7 @@
 
 ;;; Calling the Facebook API and various standard calls
 
-(use-module '{fdweb xhtml texttools facebook logger})
+(use-module '{webtools xhtml texttools facebook logger})
 
 (define-init %loglevel %notice%)
 
