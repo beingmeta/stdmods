@@ -1,7 +1,7 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 ;;; Copyright (C) 2010-2018 beingmeta, inc.  All rights reserved.
 
-;;; This is a serialization module for FramerD structures, especially
+;;; This is a serialization module for Kno structures, especially
 ;;;  ones partially constituted of "relative OIDs" whose identity is
 ;;;  scoped within a particular object.  For example, the OID-based
 ;;;  representation of a document where text nodes are implemented as

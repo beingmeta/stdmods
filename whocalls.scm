@@ -3,7 +3,7 @@
 
 (in-module 'whocalls)
 
-;;; Code analyzer for FramerD fdscript
+;;; Code analyzer for Kno fdscript
 
 (use-module '{reflection codewalker ezrecords})
 

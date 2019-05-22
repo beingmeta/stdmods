@@ -1,6 +1,6 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 
-;;; This file implements OpenID login for FramerD
+;;; This file implements OpenID login for Kno
 ;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved
 
 (in-module 'xhtml/openid)

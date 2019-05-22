@@ -4,7 +4,7 @@
 ;;; DON'T USE THIS FILE !!!
 ;;;
 ;;; The reference version of this module now in the src/libscm
-;;; directory of the FramerD/KNO source tree and renamed to
+;;; directory of the KNO source tree and renamed to
 ;;; storage/slotindex. Please use that file instead.
 
 (in-module 'slotindex)

@@ -5,7 +5,7 @@
 
 ;;; This file has been moved into the builtin libscm module,
 ;;;  so the contents of this file will only be used by older versions
-;;;  of FramerD.
+;;;  of Kno.
 
 (in-module 'stringfmts)
 

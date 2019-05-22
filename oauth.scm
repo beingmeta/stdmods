@@ -341,7 +341,7 @@
 ;;; The key/secret can either be literally on the provider definition or
 ;;;  it can be a symbol which refers to a CONFIG setting for the key/secret
 
-;;; As a best practice, the secret should be a FramerD secret, which is a
+;;; As a best practice, the secret should be a Kno secret, which is a
 ;;;  packet whose contents are never displayed.
 
 (define (getckey spec (val))

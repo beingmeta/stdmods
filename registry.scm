@@ -5,7 +5,7 @@
 
 ;;; BEFORE UPDATING OR USING THIS FILE NOTE:
 ;;; The preferred registry package is now storage/registry, which
-;;;  lives in the libscm of the FramerD implementation.
+;;;  lives in the libscm of the KNO implementation.
 
 ;;; Maintaining registries of objects (OIDs) with unique IDs
 

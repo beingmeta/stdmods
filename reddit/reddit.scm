@@ -16,7 +16,7 @@
 (define reddit.oauth #f)
 (define reddit.creds #f)
 
-(define reddit.agent "FramerD/4Reddit")
+(define reddit.agent "Kno/4Reddit")
 (varconfig! reddit:agent reddit.agent)
 
 ;; For use with script authentication
