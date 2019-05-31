@@ -17,10 +17,10 @@
   (default! cachesym
     (and curlcache (if (symbol? curlcache) curlcache 'curlcache)))
   (if cachesym
-      (try (threadget cachesym)
+      (try (thread/get cachesym)
 	   (if curlcache-default
 	       (let ((handle (curlopen)))
-		 (threadset! cachesym handle)
+		 (thread/set! cachesym handle)
 		 handle)
 	       (frame-create #f)))
       (frame-create #f)))
@@ -29,9 +29,9 @@
   (default! force (or (bound? cachesym) curlcache-default))
   (default! cachesym
     (and curlcache (if (symbol? curlcache) curlcache 'curlcache)))
-  (if (or force (exists? (threadget cachesym)))
+  (if (or force (exists? (thread/get cachesym)))
       (let ((handle (curlopen)))
-	(threadset! cachesym handle)))
+	(thread/set! cachesym handle)))
   cachesym)
 
 

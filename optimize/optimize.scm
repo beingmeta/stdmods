@@ -86,7 +86,7 @@
 (config-def! 'optwarn optwarn-config)
 (defslambda (codewarning warning)
   (debug%watch "CODEWARNING" warning)
-  (threadset! 'codewarnings (choice warning (threadget 'codewarnings))))
+  (thread/set! 'codewarnings (choice warning (thread/get 'codewarnings))))
 
 ;;; What we export
 
@@ -526,7 +526,7 @@
 	(optimize arg env bound opts))))
 
 (define (optimize-procedure! proc (opts #f))
-  (threadset! 'codewarnings #{})
+  (thread/set! 'codewarnings #{})
   (unless (reflect/get proc 'optimized)
     (onerror
 	(let* ((env (procedure-env proc))
@@ -549,12 +549,12 @@
 	      (let ((optimized-args (optimize-arglist arglist env opts)))
 		(unless (equal? arglist optimized-args)
 		  (set-procedure-args! proc optimized-args))))
-	    (if (exists? (threadget 'codewarnings))
+	    (if (exists? (thread/get 'codewarnings))
 		(warning "Errors optimizing " proc ": "
-			 (do-choices (warning (threadget 'codewarnings))
+			 (do-choices (warning (thread/get 'codewarnings))
 			   (printout "\n\t" warning)))
 		(lognotice |Optimized| proc))
-	    (threadset! 'codewarnings #{})))
+	    (thread/set! 'codewarnings #{})))
 	(lambda (ex) 
 	  (logwarn |OptimizationError|
 	    "While optimizing "

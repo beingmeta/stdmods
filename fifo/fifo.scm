@@ -269,9 +269,9 @@
       (always%watch "FIFO-WAITING!" flag (fifo-waiting fifo) fifo)
       (debug%watch "FIFO-WAITING!" flag (fifo-waiting fifo) fifo))
   (set-fifo-waiting! fifo (+ (if flag 1 -1) (fifo-waiting fifo)))
-  (if (threadget '_fifo)
+  (if (thread/get '_fifo)
       (set-fifo-running! fifo (+ (if flag -1 1) (fifo-running fifo)))
-      (threadset! '_fifo fifo))
+      (thread/set! '_fifo fifo))
   (condvar-signal (fifo-condvar fifo) #t)
   (fifo-waiting fifo))
 

@@ -18,7 +18,7 @@
 ;; This is the default method for getting the current language.  For
 ;; web stuff, this should use (get-language).
 (define (defaultlanguagefn)
-  (try (threadget 'language) default-language))
+  (try (thread/get 'language) default-language))
 
 ;; This is configurable
 (define getlanguagefn defaultlanguagefn)

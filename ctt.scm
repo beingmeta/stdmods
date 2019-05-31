@@ -47,7 +47,7 @@
 (define ctt-state (make-hashtable))
 
 (defslambda (get-ctt-state label)
-  (let ((state-table (try (threadget 'ctt-state) ctt-state)))
+  (let ((state-table (try (thread/get 'ctt-state) ctt-state)))
     (try (get state-table label)
 	 (let ((state (cons 0 (make-vector 64 0))))
 	   (store! state-table label state)
@@ -128,16 +128,16 @@
 ;;; Phase functions
 
 (define (ctt/starting phase . args)
-  (let* ((table (threadget 'ctt/phases))
+  (let* ((table (thread/get 'ctt/phases))
 	 (phasekey (if (null? args) phase (cons phase args)))
 	 (datum (get table phasekey)))
     (when (fail? table)
       (set! table (make-hashtable))
-      (threadset! 'ctt/phases table))
+      (thread/set! 'ctt/phases table))
     (if (fail? datum) (store! table phasekey (ct/sense)))))
 
 (define (ctt/finished phase . args)
-  (let* ((table (threadget 'ctt/phases))
+  (let* ((table (thread/get 'ctt/phases))
 	 (phasekey (if (null? args) phase (cons phase args)))
 	 (datum (get table phasekey)))
     (if (exists? datum)
@@ -149,7 +149,7 @@
 
 (defambda (cttsummary (label #f)
 		      (sortfn (lambda (x) (first (cdr (get ctt-state x)))))
-		      (state-table (try (threadget 'ctt-state) ctt-state)))
+		      (state-table (try (thread/get 'ctt-state) ctt-state)))
   (let ((ctt-state (or state-table ctt-state)))
     (doseq (label (rsorted (or label (getkeys state-table)) sortfn))
       (let* ((state (get ctt-state label))

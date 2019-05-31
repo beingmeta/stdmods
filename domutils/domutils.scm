@@ -1206,7 +1206,7 @@
 	       node)
 	  node)))
 
-(define (dom/oidify node (pool (try (threadget 'dompool) dompool))
+(define (dom/oidify node (pool (try (thread/get 'dompool) dompool))
 		    (inplace #t) (doc #f) (parent #f) )
   (if (eq? pool #t) (set! pool dompool))
   (if (not pool) node

@@ -40,7 +40,7 @@
       (set! xconfigs (difference xconfigs (canonical-gpath paths)))))
 
 (define (load-xconfig path (err #f))
-  (let* ((root (try (threadget 'xconfig:root) xconfig:root))
+  (let* ((root (try (thread/get 'xconfig:root) xconfig:root))
 	 (gp (->gpath path (if (string? root) (->gpath root) root)))
 	 (canonical (and (gpath? gp) (gpath->string gp))))
     (debug%watch "LOAD-XCONFIG" path root gp canonical)
@@ -51,9 +51,9 @@
 		(when (or xconfig:trace (config 'traceconfigload))
 		  (lognotice |XConfig| "Loading " canonical))
 		(unwind-protect
-		    (begin (threadset! 'xconfig:root (gp/location gp))
+		    (begin (thread/set! 'xconfig:root (gp/location gp))
 		      (read-config (->string (gp/fetch gp))))
-		  (threadset! 'xconfig:root root))
+		  (thread/set! 'xconfig:root root))
 		(set+! xconfigs canonical))
 	      (if err
 		  (irritant canonical |LoadXConfigFailed|)

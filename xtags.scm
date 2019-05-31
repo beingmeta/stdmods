@@ -57,7 +57,7 @@
 
 (define (get-language-info)
   (try (cgiget 'language)
-       (threadget 'language)
+       (thread/get 'language)
        default-language))
 
 (define (oid->dterm oid (language (get-language-info)))

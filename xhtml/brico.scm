@@ -410,12 +410,12 @@
 (define title-gloss #t)
 
 (define (get-label-fcn)
-  (try (threadget 'conceptlabel)
+  (try (thread/get 'conceptlabel)
        (req/get 'conceptlabel)
        concept-label-fcn))
 
 (define (title-gloss?)
-  (try (threadget 'titlegloss) title-gloss))
+  (try (thread/get 'titlegloss) title-gloss))
 
 (define (trim-gloss string)
   (if (position #\u00b6 string)
