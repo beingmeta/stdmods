@@ -5,7 +5,7 @@
 
 (in-module 'textindex/linkup)
 
-(use-module '{texttools tagger})
+(use-module '{texttools ofsm})
 
 ;;; Keytuple extraction
 

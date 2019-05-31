@@ -34,7 +34,7 @@
 
 ;;; Making cache qeueues
 
-(defrecord (cachequeue #[PREFIX "CQ" OPAQUE #t])
+(defrecord (cachequeue #[PREFIX "cq" OPAQUE #t])
   cache     ; This caches computed values
   fifo      ; This is the FIFO of pending compute requests
 
@@ -80,7 +80,7 @@
 	     (make-hashtable) meltpoint (frame-create #f))))
     (when nthreads
       (dotimes (i nthreads)
-	(add! cqthreads cq (threadcall cqdaemon cq i #f))))
+	(add! cqthreads cq (thread/call cqdaemon cq i #f))))
     cq))
 
 ;;; Standard API
@@ -177,11 +177,11 @@
 		  (when (exists? state)
 		    (store! pending call (cons (get pending call) (timestamp)))
 		    (fifo-jump (cq-fifo cq) call))
-		  (synchro-unlock (cq-lock cq))
+		  (synchro/unlock! (cq-lock cq))
 		  (%debug "Starting execution of " call)
 		  (let ((value (erreify (apply (car call) (cdr call)))))
 		    (%debug "Finished executing " call)
-		    (synchro-lock (cq-lock cq))
+		    (synchro/lock! (cq-lock cq))
 		    (%debug "Caching results of " call)
 		    (if (error? value)
 			(store! pending call value)
@@ -248,10 +248,10 @@
 		 (list 'queued statev))))))
   (if (test (cq-cache cq) args) #t
       (unwind-protect
-	  (begin (synchro-lock (cq-lock cq))
+	  (begin (synchro/lock! (cq-lock cq))
 		 (try (get (cq-cache cq) args)
 		      #f))
-	(synchro-unlock (cq-lock cq)))))
+	(synchro/unlock! (cq-lock cq)))))
 
 (define (cqinfo cq call)
   "Returns the status of a queued computation"

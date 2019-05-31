@@ -22,12 +22,12 @@
 	 (optimize-module! mod)))))
 
 (check-modules '{cachequeue calltrack checkurl codewalker
-		 couchdb ctt curlcache dopool dropbox ellipsize
+		 couchdb curlcache dopool dropbox ellipsize
 		 email extoids ezrecords fakezip fifo fillin
 		 findcycles getcontent gpath gravatar gutdb
 		 hashfs hashstats zipfs histogram hostinfo i18n
 		 ice isbn jsonout logctl logger
-		 meltcache mergeutils mimeout mimetable
+		 meltcache mimeout mimetable
 		 mttools oauth openlibrary ;; optimize
 		 opts packetfns parsetime bugjar
 		 pump readcsv rulesets samplefns
@@ -65,8 +65,8 @@
        (onerror (begin (use-module 'brico) #t) #f)))						    
 (define (have-lexdata)
   (and (config 'lexdata)
-       (onerror (and (exists? (get (get-module 'tagger) 'lextags))
-		     ((get (get-module 'tagger) 'lextags)))
+       (onerror (and (exists? (get (get-module 'ofsm) 'lextags))
+		     ((get (get-module 'ofsm) 'lextags)))
 	 (lambda () #f))))
 
 (when (and (have-brico) (have-morph))

@@ -54,7 +54,7 @@
 	  (let ((threads {}))
 	    (dotimes (i threadcount)
 	      (set+! threads 
-		     (threadcall 
+		     (thread/call 
 		      loopfn i (get-thread-state thread-state args))))
 	    (threadjoin threads)
 	    (set! thread-results (map thread/result (choice->vector threads))))
