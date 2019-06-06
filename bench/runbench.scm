@@ -1,4 +1,4 @@
-#!/usr/bin/env fdexec
+#!/usr/bin/env kno
 
 (use-module 'optimize)
 

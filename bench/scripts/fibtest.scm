@@ -1,4 +1,4 @@
-#!/usr/bin/env fdexec
+#!/usr/bin/env kno
 ;;; -*- Mode: Scheme -*-
 
 (use-module '{bench/miscfns bench/threads optimize})

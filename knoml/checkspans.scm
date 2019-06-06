@@ -1,10 +1,10 @@
 ;;; -*- Mode: Scheme; character-encoding: utf-8; -*-
 
-;;; This file implements new virtual elements for FDXML files
+;;; This file implements new virtual elements for KNOML files
 ;;;  on the sBooks site.
 ;;; Copyright (C) 2005-2015 beingmeta, inc.  All rights reserved.
 
-;;; This module defines FDXML handlers
+;;; This module defines KNOML handlers
 
 (in-module 'knoml/checkspans)
 

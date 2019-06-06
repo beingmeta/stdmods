@@ -187,7 +187,7 @@
   (store! node '{%xmltag %qname} name)
   (store! node '%id (dom/nodeid node)))
 
-(define (dom/set! node attrib val (index #f) (fdxml #f))
+(define (dom/set! node attrib val (index #f) (knoml #f))
   (drop! node '%markup)
   (let* ((slotid (if (symbol? attrib) attrib (string->lisp attrib)))
 	 (aname (if (symbol? attrib) (downcase (symbol->string attrib))
@@ -202,7 +202,7 @@
 			 (pick allattribs unqname (try unq aname))
 			 (pick allattribs lunqname (downcase (try unq aname)))))
 	   (ids (get node '%attribids))
-	   (stringval (if (and (not fdxml) (string? val)) val
+	   (stringval (if (and (not knoml) (string? val)) val
 			  (->domstring val)))
 	   (qattrib (string->lisp (first (singleton attribs))))
 	   (newattrib (vector (elt attribs 0) (elt attribs 1) stringval))

@@ -3,7 +3,7 @@
 
 (in-module 'whocalls)
 
-;;; Code analyzer for Kno fdscript
+;;; Code analyzer for Kno language
 
 (use-module '{reflection codewalker ezrecords})
 

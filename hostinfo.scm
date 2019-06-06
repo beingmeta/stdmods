@@ -17,7 +17,7 @@
     'syshost (req/get 'syshost)
     'http (req/get 'server_protocol)
     'software (choice (req/get 'server_software)
-		      (glom "kno-" (config 'fdversion))
+		      (glom "kno-" (config 'knoversion))
 		      (glom "libu8-" (config 'u8version)))
     'servername (req/get 'http_host)
     'serverip (req/get 'server_addr)
