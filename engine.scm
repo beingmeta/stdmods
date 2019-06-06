@@ -572,10 +572,10 @@ slot of the loop state.
 (define-init check/start!
   (slambda (loop-state)
     (if (and (getopt loop-state 'checkthread)
-	     (not (test loop-state 'checkthread (threadid))))
+	     (not (test loop-state 'checkthread (thread-id))))
 	#f
 	(begin 
-	  (store! loop-state 'checkthread (threadid))
+	  (store! loop-state 'checkthread (thread-id))
 	  (store! loop-state 'checkstart (elapsed-time))
 	  #t))))
 

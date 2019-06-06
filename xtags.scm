@@ -56,7 +56,7 @@
 		      {}))))))
 
 (define (get-language-info)
-  (try (cgiget 'language)
+  (try (req/get 'language)
        (thread/get 'language)
        default-language))
 

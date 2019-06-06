@@ -177,11 +177,11 @@
 		  (when (exists? state)
 		    (store! pending call (cons (get pending call) (timestamp)))
 		    (fifo-jump (cq-fifo cq) call))
-		  (synchro/unlock! (cq-lock cq))
+		  (sync/unlock! (cq-lock cq))
 		  (%debug "Starting execution of " call)
 		  (let ((value (erreify (apply (car call) (cdr call)))))
 		    (%debug "Finished executing " call)
-		    (synchro/lock! (cq-lock cq))
+		    (sync/lock! (cq-lock cq))
 		    (%debug "Caching results of " call)
 		    (if (error? value)
 			(store! pending call value)
@@ -248,10 +248,10 @@
 		 (list 'queued statev))))))
   (if (test (cq-cache cq) args) #t
       (unwind-protect
-	  (begin (synchro/lock! (cq-lock cq))
+	  (begin (sync/lock! (cq-lock cq))
 		 (try (get (cq-cache cq) args)
 		      #f))
-	(synchro/unlock! (cq-lock cq)))))
+	(sync/unlock! (cq-lock cq)))))
 
 (define (cqinfo cq call)
   "Returns the status of a queued computation"
