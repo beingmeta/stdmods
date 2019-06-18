@@ -3,7 +3,7 @@
 
 (in-module 'couchdb)
 
-(use-module '{webtools ezrecords extoids jsonout})
+(use-module '{webtools ezrecords sqloids jsonout})
 (use-module '{texttools logger})
 
 (define-init %loglevel %notice%)

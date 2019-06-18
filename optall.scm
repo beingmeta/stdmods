@@ -23,7 +23,7 @@
 
 (check-modules '{cachequeue calltrack checkurl codewalker
 		 couchdb curlcache dopool dropbox ellipsize
-		 email extoids ezrecords fakezip fifo fillin
+		 email sqloids ezrecords fakezip fifo fillin
 		 findcycles getcontent gpath gravatar gutdb
 		 hashfs hashstats zipfs histogram hostinfo i18n
 		 ice isbn jsonout logctl logger
