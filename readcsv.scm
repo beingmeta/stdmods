@@ -8,7 +8,7 @@
   (if (string? val)
       (if (and (has-prefix val "\"")  (has-suffix val "\""))
 	  (convert-cell (subseq val 1 -1))
-	  (if (compound? val) val
+	  (if (compound-string? val) val
 	      (if (empty-string? val) val
 		  (string->lisp val))))
       val))

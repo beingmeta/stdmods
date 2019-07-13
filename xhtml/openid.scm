@@ -150,7 +150,7 @@
     (debug%watch "OPENID-RETURN" signed)
     (dolist (key signed)
       (let* ((osym (string->symbol (append "OPENID." (upcase key))))
-	     (sym  (string->symbol (upcase key)))
+	     (sym  (string->symbol (downcase key)))
 	     (ssym (tryif (and (not (has-prefix key "ax.type."))
 			       (rposition #\. key))
 		     (string->symbol

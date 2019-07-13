@@ -360,18 +360,18 @@
     (dolist (input inputs)
       (do-choices input
 	(cond ((string? input)
-	       (when (compound? input) (hashset-add! phrases input)))
+	       (when (compound-string? input) (hashset-add! phrases input)))
 	      ((hashset? input)
 	       (hashset-add! phrases
 			     (pick (pickstrings (hashset-elts input))
-				   compound?)))
+				   compound-string?)))
 	      ((hashtable? input)
 	       (let ((keys (getkeys input)))
-		 (hashset-add! phrases (pick (pickstrings keys) compound?))
+		 (hashset-add! phrases (pick (pickstrings keys) compound-string?))
 		 (do-choices (key keys)
 		   (hashset-add! phrases
 				 (pick (pickstrings (get input key))
-				       compound?)))))
+				       compound-string?)))))
 	      (else))))
     (do-choices (phrase (hashset-elts phrases))
       (let ((vec (words->vector phrase)))

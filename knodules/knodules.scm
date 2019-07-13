@@ -594,7 +594,7 @@
     ;; Index expanded vales (including metaphone hashes)
     (add! index (cons slotid (kno/string-indexes value)) frame)
     ;; Update the phrasemap
-    (when (compound? value)
+    (when (compound-string? value)
       (let ((wordv (words->vector value))
 	    (phrasemap (try (get (knodule-phrasemaps knodule) slotid)
 			    (new-phrasemap knodule slotid))))

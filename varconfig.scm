@@ -50,7 +50,7 @@
 	  (parse-arg arg)
 	  (if (textsearch '(isspace) arg)
 	      (parse-arg arg)
-	      (intern (upcase arg))))
+	      (intern (downcase arg))))
       arg))
 
 (define varconfig!
@@ -153,7 +153,7 @@
 
 (define (config:symbol val)
   (if (symbol? val)
-      (if (string? val) (intern (upcase val))
+      (if (string? val) (intern (downcase val))
 	  (begin (logwarn "Odd config:symbol specifier " (write val))
 	    (fail)))))
 

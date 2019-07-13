@@ -137,8 +137,10 @@
 	    (cons-jwt header payload signature string 
 		      (getopt opts 'domain issuer)
 		      (and key #t) (try (get payload "exp") (get payload 'exp) #f))
-	    (and err (signal-error string key alg issuer header 
-				   payload signature body))))
+	    (if err 
+		(signal-error string key alg issuer header payload signature body)
+		(begin (logwarn |JWTSignatureFailed| "payload=" payload ", signature=" signature )
+		  #f))))
       (cons-jwt (jwt/b64.json (car segs)) (jwt/b64.json (cadr segs)) 
 		(jwt/b64.bin (caddr segs)) string
 		(getopt opts 'domain issuer))))

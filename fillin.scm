@@ -19,7 +19,7 @@
 
 (define (dosubst string table)
   (let* ((bar (position #\| string))
-	 (sym (intern (upcase (slice string 2 (or bar -2))))))
+	 (sym (intern (downcase (slice string 2 (or bar -2))))))
     (if (exists? (get table sym))
 	(stringout (get table sym))
 	(if bar (slice string (1+ bar) -2)

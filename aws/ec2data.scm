@@ -73,7 +73,7 @@
 (do-choices (endpoint ec2-data-endpoints)
   (let ((base (basename (strip-suffix endpoint "/"))))
     (store! prop-info base endpoint)
-    (store! prop-info (string->symbol (upcase base)) endpoint)))
+    (store! prop-info (string->symbol (downcase base)) endpoint)))
 
 (define (ec2/data (prop #f) (version "latest") (error #f))
   (if (not version) (set! version "latest"))

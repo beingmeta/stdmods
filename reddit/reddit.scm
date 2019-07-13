@@ -186,12 +186,12 @@
 	     (reddit/thing (get json 'data) opts)
 	     (if (test (get json 'data) 'children)
 		 (let ((data (reddit/thing (get json 'data) opts)))
-		   (store! data (intern (upcase (get json 'kind)))
+		   (store! data (intern (downcase (get json 'kind)))
 			   (get data 'children))
 		   (drop! data 'children)
 		   data)
 		 (frame-create #f 
-		   (intern (upcase (get json 'kind)))
+		   (intern (downcase (get json 'kind)))
 		   (reddit/thing (get json 'data) opts)))))
 	((test json 'children)
 	 (frame-create #f

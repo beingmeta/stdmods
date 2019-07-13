@@ -40,7 +40,7 @@
 	    (anchor weblink
 	      (img src (mkpath bmstatic "graphics/outlink16x8.png") alt "link")))
 	  (when oid
-	    (anchor* (scripturl "http://www.bricobase.net/index.fdcgi"
+	    (anchor* (scripturl "http://www.bricobase.net/index.scm.cgi"
 		       'concept oid)
 		((title "info at BRICOBASE")
 		 (target "_blank"))

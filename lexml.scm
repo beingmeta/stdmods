@@ -61,7 +61,7 @@
 
 (define (add-fragments table)
   (do-choices (key (getkeys table))
-    (when (and (string? key) (compound? key))
+    (when (and (string? key) (compound-string? key))
       (let* ((words (getwords key))
 	     (len (length words)))
 	(add! table words (get table key))

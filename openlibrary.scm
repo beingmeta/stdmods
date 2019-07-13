@@ -81,7 +81,7 @@
 	((table? data)
 	 (let ((new (frame-create #f)))
 	   (do-choices (key (getkeys data))
-	     (let ((slotid (if (string? key) (intern (upcase key)) key))
+	     (let ((slotid (if (string? key) (intern (downcase key)) key))
 		   (value (get data key)))
 	       (cond ((equal? key 'type) (store! new 'type (olib/ref (olib/import value))))
 		     ((string? value) (store! new slotid value))

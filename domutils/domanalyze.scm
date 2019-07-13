@@ -42,7 +42,7 @@
 		  {})
 	     phrasemap
 	     ,(choice (getopt options 'phrasemap {})
-		      (text/phrasemap (pick justwords compound?)
+		      (text/phrasemap (pick justwords compound-string?)
 				      wordtables))
 	     textfns ,dom/textify
 	     stops ,stops
