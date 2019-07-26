@@ -139,7 +139,7 @@
       (set! idcache identity-cache)
       (set! idcache (string->symbol (glom "__" cookie))))
   (req/get idcache
-	   (let* ((jwt (%wc auth/getinfo cookie jwtarg err))
+	   (let* ((jwt (auth/getinfo cookie jwtarg err))
 		  (id (tryif jwt (parse-arg (jwt/get jwt 'sub)))))
 	     (when (and (exists? jwt) (fail? id))
 	       (logwarn |JWT/AUTH/noid| "Couldn't get id (sub) from " jwt))
