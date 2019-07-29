@@ -379,14 +379,18 @@
 	  (add! phrasemap (first vec) vec))))
     phrasemap))
 
+(define (bad-hashset file)
+  ;; (file->dtype file)
+  (make-hashset))
+
 (define-init text-settings
   `#[wordrule ,default-word-rule
      stoprules ,default-stoprules
-     stopwords ,(file->dtype (get-component "data/en-stops.dtype"))
+     stopwords ,(bad-hashset (get-component "data/en-stops.dtype"))
      morphrules ,default-morphrules
      rootmaps ,(file->dtype (get-component "data/en-rootmap.dtype"))
-     rootset ,(file->dtype (get-component "data/en-rootset.dtype"))
+     rootset ,(bad-hashset (get-component "data/en-rootset.dtype"))
      phrasemap ,(text/phrasemap
 		 (file->dtype (get-component "data/en-rootmap.dtype"))
-		 (file->dtype (get-component "data/en-rootset.dtype")))
+		 (bad-hashset (get-component "data/en-rootset.dtype")))
      nameinfo #[nameglue ,default-name-glue]])

@@ -67,8 +67,12 @@
 
 ;;; Various useful global tables
 
+(define (bad-hashtable file)
+  ;; (file->dtype file)
+  (make-hashtable))
+
 (define-init langids (file->dtype (get-component "data/langids.dtype")))
-(define-init langnames (file->dtype (get-component "data/langnames.table")))
+(define-init langnames (bad-hashtable (get-component "data/langnames.table")))
 (define-init kno/slotids {})
 (define-init kno/slotnames (make-hashtable))
 (define-init kno/relcodes (make-hashtable))
