@@ -7,6 +7,7 @@
 
 (module-export! '{fibr fibi fibix fibflt factr facti slowfib fibwhile})
 (module-export! '{fibr/random fibi/random fibix/random fibflt/random})
+(module-export! '{balancer})
 (module-export! '{ack tak takflt})
 (module-export! 'spectral-norm)
 (module-export! 'square)
