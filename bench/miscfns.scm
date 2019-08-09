@@ -49,6 +49,18 @@
 (define (fibflt/random n)
   (fibflt (+ 1 (quotient n 2) (random (quotient n 2)))))
 
+;;; "Balance"
+
+;;; This is a tail recursion function where the numbers won't become
+;;; bignums, giving better evaluation of how much optimizing the tail
+;;; call logic actually provides
+
+(define (balance-iter i up down)
+  (if (= i 1) (- up down)
+      (balance-iter (-1+ i) (1+ up) (1+ down))))
+(define (balancer n)
+  (if (= n 0) 0 (balance-iter n 0 0)))
+
 ;;; Factorial
 
 (define (factr n)
