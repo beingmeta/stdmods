@@ -48,7 +48,7 @@
     dterm))
 
 (define (default-lookup term language (freq 0))
-  (try (singleton (?? (get norm-map (tryget language-map language))
+  (try (singleton (?? (get norm-map (try (get language-map language) language))
 		      term))
        (lookup-word term language)))
 
@@ -90,7 +90,7 @@
 		      (choice-size m) " meanings")
 	    (do-choices m
 	      (lineout "\n\t;; "
-		       (string-subst (get-short-gloss m @?en) "\n" " "))
+		       (string-subst (get-short-gloss m en) "\n" " "))
 	      (printout "\t" m))
 	    ;; (printout "\t'EN " (write (get faux-genls term)) "\n")
 	    (lineout ")"))
