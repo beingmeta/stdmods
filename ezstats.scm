@@ -10,16 +10,26 @@
 
 ;;; Most common functions
 
-(defambda (mean x (fn #f)) 
-  (if (and (singleton? x) (or (vector? x) (list? x)))
-      (arithmetic-mean (if fn (map fn (->vector x)) (->vector x)))
-      (arithmetic-mean (if fn (map fn (choice->vector x))
-			   (choice->vector x)))))
+(defambda (mean x (fn #f) (vec)) 
+  (set! vec
+    (if (and (singleton? x) (or (vector? x) (list? x)))
+	(->vector x)
+	(choice->vector x)))
+  (arithmetic-mean
+   (cond ((not fn) vec)
+	 ((applicable? fn) (forseq (v vec) (fn v)))
+	 ((table? fn) (forseq (v vec) (get fn v)))
+	 (else (irritant fn |InvalidFunction|)))))
 (defambda (stddev x (fn #f))
-  (if (and (singleton? x) (or (vector? x) (list? x)))
-      (sqrt (arithmetic-variance (if fn (map fn x) x)))
-      (sqrt (arithmetic-variance (if fn (map fn (choice->vector x))
-				     (choice->vector x))))))
+  (set! vec
+    (if (and (singleton? x) (or (vector? x) (list? x)))
+	(->vector x)
+	(choice->vector x)))
+  (sqrt (arithmetic-variance
+	 (cond ((not fn) vec)
+	       ((applicable? fn) (forseq (v vec) (fn v)))
+	       ((table? fn) (forseq (v vec) (get fn v)))
+	       (else (irritant fn |InvalidFunction|))))))
 ;;; Arithmetic functions
 
 (define (arithmetic-mean vec (weights #f) (inexact #t))
@@ -71,11 +81,16 @@
 		      exact-root
 		      root))))
 	  (irritant vec |MixedNegativePositiveElements|))))
-(defambda (gmean x (fn #f)) 
-  (if (and (singleton? x) (or (vector? x) (list? x)))
-      (geometric-mean (if fn (map fn (->vector x)) (->vector x)))
-      (geometric-mean (if fn (map fn (choice->vector x))
-			  (choice->vector x)))))
+(defambda (gmean x (fn #f) (vec)) 
+  (set! vec
+    (if (and (singleton? x) (or (vector? x) (list? x)))
+	(->vector x)
+	(choice->vector x)))
+  (geometric-mean
+   (cond ((not fn) vec)
+	 ((applicable? fn) (forseq (v vec) (fn v)))
+	 ((table? fn) (forseq (v vec) (get fn v)))
+	 (else (irritant fn |InvalidFunction|)))))
 
 (define (harmonic-mean vec (weights #f) (drop-zeros #f) (inexact #f))
   (if (some? zero? vec)
@@ -94,11 +109,16 @@
 	  (if inexact
 	      (/~ (length vec) (reduce + (map /~ vec)))
 	      (/ (length vec) (reduce + (map / vec)))))))
-(defambda (hmean x (fn #f)) 
-  (if (and (singleton? x) (or (vector? x) (list? x)))
-      (harmonic-mean (if fn (map fn (->vector x)) (->vector x)))
-      (harmonic-mean (if fn (map fn (choice->vector x))
-			 (choice->vector x)))))
+(defambda (hmean x (fn #f) (vec)) 
+  (set! vec
+    (if (and (singleton? x) (or (vector? x) (list? x)))
+	(->vector x)
+	(choice->vector x)))
+  (harmonic-mean
+   (cond ((not fn) vec)
+	 ((applicable? fn) (forseq (v vec) (fn v)))
+	 ((table? fn) (forseq (v vec) (get fn v)))
+	 (else (irritant fn |InvalidFunction|)))))
 
 (define (median vec)
   (let* ((vec (sortvec vec)) 
