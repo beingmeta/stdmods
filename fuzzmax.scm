@@ -5,7 +5,7 @@
 
 (use-module 'ezstats)
 
-(module-export! '{fuzzmax+ fuzzmax fuzzmax/thresh})
+(module-export! '{fuzzmax+ fuzzmax fuzzmax/score})
 
 (define (fuzzmax+ scores (thresh 0.9))
   (let* ((maxval (table-maxval scores))
@@ -29,6 +29,6 @@
 (define (fuzzmax scores (thresh 0.9))
   (cdr (fuzzmax+ scores thresh)))
 
-(define (fuzzmax/thresh scores (thresh 0.9))
+(define (fuzzmax/score scores (thresh 0.9))
   (car (fuzzmax+ scores thresh)))
 
