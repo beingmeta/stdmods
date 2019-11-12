@@ -9,7 +9,7 @@
 
 (in-module 'slotindex)
 
-(use-module '{logger varconfig kb})
+(use-module '{logger varconfig knobase})
 
 (module-export! '{slotindex/make slotindex/setup 
 		  slotindex/init slotindex/add!
