@@ -15,17 +15,20 @@
    s3ish?})
 (module-export! '{s3loc s3/getloc s3loc/s3uri make-s3loc
 		  s3loc/uri s3loc/filename s3/bytecodes->string})
-(module-export! '{s3loc/get s3loc/head s3loc/exists?
-		  s3loc/etag s3loc/modified s3loc/info
-		  s3loc/content s3loc/put s3loc/copy! s3loc/link!
-		  s3loc/modify!})
+(module-export! '{s3/get s3/head s3/exists?
+		  s3/etag s3/modtime s3/info
+		  s3/list s3/list+
+		  s3/content s3/put s3/link!
+		  s3/modify!})
 (module-export! '{s3/get s3/get+ s3/head s3/ctype s3/exists?
-		  s3/modified s3/etag  s3/info
-		  s3/bucket? s3/copy! s3/link! s3/modify! s3/put
-		  s3/download!})
+		  s3/modtime s3/etag s3/info
+		  s3/put s3/write! s3/delete! s3/copy s3/copy!
+		  s3/link! s3/metadata!
+		  s3/copy* s3/axe! s3/push!
+		  s3/download!
+		  s3/bucket?})
 (module-export! '{s3/signature s3/op s3/expected
 		  s3/uri s3/signeduri s3/pathuri s3/hosturi})
-(module-export! '{s3/axe! s3/copy*! s3/push!})
 (module-export! '{s3/getpolicy s3/setpolicy! s3/addpolicy!
 		  s3/policy/endmarker})
 
@@ -34,7 +37,7 @@
 ;;(logctl! 'aws/v4 %info%)
 ;;(logctl! 'gpath %info%)
 
-(define headcache #f)
+(define head-cache #f)
 
 (define s3root "s3.amazonaws.com")
 (varconfig! s3root s3root)
@@ -105,13 +108,12 @@
 
 (defrecord (s3loc . #[stringfn s3loc-string])
   bucket path (opts {}))
-(define s3loc/bucket s3loc-bucket)
-(define s3loc/path s3loc-path)
-(define (s3loc/opts loc)
-  (if (s3loc? loc)
-      (tryif (> (compound-length loc) 2)
-	(s3loc-opts loc))
-      (irritant loc "Not an S3LOC")))
+(define s3loc/bucket (fcn/alias s3loc-bucket))
+(define s3/bucket (fcn/alias s3loc-bucket))
+(define s3loc/path   (fcn/alias s3loc-path))
+(define s3/path   (fcn/alias s3loc-path))
+(define s3loc/opts   (fcn/alias s3loc-opts))
+(define s3/opts   (fcn/alias s3loc-opts))
 
 (define (make-s3loc bucket path (opts #f))
   (if (and (string? bucket) (not (position #\/ bucket)))
@@ -156,7 +158,6 @@
       (or (has-prefix loc "s3:")
 	  (textmatch s3uripat loc))
       (s3loc? loc)))
-
 
 (define (s3/mkpath loc path . more)
   (when (string? loc) (set! loc (->s3loc loc)))
@@ -519,8 +520,6 @@
   (let ((req (s3/op "HEAD" (s3loc-bucket loc) "" #f "" #f headers)))
     (response/ok? req)))
 
-(module-export! '{s3/bucket? s3/write! s3/delete!})
-
 ;;; User facing s3loc constructors, exporters, etc
 
 (define (s3loc bucket path)
@@ -535,8 +534,10 @@
 (define (s3loc/uri s3loc)
   (if (string? s3loc) (set! s3loc (->s3loc s3loc)))
   (if (position #\. (s3loc-bucket s3loc))
-      (stringout s3scheme s3root "/"  (s3loc-bucket s3loc) (s3loc-path s3loc))
-      (stringout s3scheme  (s3loc-bucket s3loc) "." s3root (s3loc-path s3loc))))
+      (stringout s3scheme s3root "/"  (s3loc-bucket s3loc)
+	(s3loc-path s3loc))
+      (stringout s3scheme  (s3loc-bucket s3loc) "." s3root
+	(s3loc-path s3loc))))
 
 (define (s3loc/s3uri s3loc)
   (if (string? s3loc) (set! s3loc (->s3loc s3loc)))
@@ -544,7 +545,7 @@
 
 ;;; Basic S3LOC network methods
 
-(define (s3loc/get loc (headers) (opts))
+(define (s3/get loc (headers) (opts))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers) '()))
   (default! opts
@@ -552,23 +553,22 @@
 	#[errs #t]
 	s3opts))
   (when (not (table? opts)) (set! opts `#[errs ,opts]))
-  (if headcache
+  (if head-cache
       (let ((req (s3/op "GET" (s3loc-bucket loc) (s3loc-path loc)
 		   opts "" "text" headers)))
-	(when headcache
-	  (let ((copy (deep-copy req)))
-	    (drop! copy '%content)
-	    (meltcache/store headcache copy s3head (list loc headers))))
+	(let ((copy (deep-copy req)))
+	  (drop! copy '%content)
+	  (meltcache/store head-cache copy s3head (list loc headers)))
 	req)
-    (s3/op "GET" (s3loc-bucket loc) (s3loc-path loc) opts "" "text" headers)))
+      (s3/op "GET" (s3loc-bucket loc) (s3loc-path loc) opts
+	     "" "text" headers)))
 
-(define (s3loc/head loc (headers))
+(define (s3/head loc (headers))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers) '()))
-  (if headcache
-      (meltcache/get headcache s3head loc headers)
+  (if head-cache
+      (meltcache/get head-cache s3head loc headers)
       (s3head loc headers)))
-(define s3/head s3loc/head)
 
 (define (s3head loc headers)
   (s3/op "HEAD" (s3loc-bucket loc) (s3loc-path loc) #[errs #f] "" ""
@@ -577,18 +577,17 @@
 
 (config-def! 's3:headcache
 	     (lambda (var (val))
-	       (cond ((not (bound? val)) headcache)
+	       (cond ((not (bound? val)) head-cache)
 		     ((integer? val)
 		      (config! 'meltpoint (cons 's3head val))
-		      (unless (hashtable? headcache)
-			(set! headcache (make-hashtable))))
-		     ((hashtable? val) (set! headcache val))
-		     ((string? val)
+		      (unless (hashtable? head-cache)
+			(set! head-cache (make-hashtable))))
+		     ((hashtable? val) (set! head-cache val))
+		     ((string? val) 
 		      (error "Meltcache reloads not yet supported"))
-		     (else
-		      (set! headcache (make-hashtable))))))
+		     (else (set! head-cache (make-hashtable))))))
 
-(define (s3loc/get+ loc (text #t) (headers) (opts #f))
+(define (s3/get+ loc (text #t) (headers) (opts #f))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers) '()))
   (if opts
@@ -600,10 +599,10 @@
 	 (status (get req 'response))
 	 (content (get req '%content))
 	 (hash (md5 content)))
-    (when headcache
+    (when head-cache
       (let ((copy (deep-copy req)))
 	(drop! copy '%content)
-	(meltcache/store headcache copy s3head (list loc headers))))
+	(meltcache/store head-cache copy s3head (list loc headers))))
     (if (and status (>= 299 status 200))
 	(frame-create #f
 	  'content-type 
@@ -619,42 +618,37 @@
 	  'etag (get req 'etag)
 	  'hash (tryif hash hash)
 	  'md5 (tryif hash (packet->base16 hash)))
-	(and err (irritant req S3FAILURE S3LOC/CONTENT
+	(and err (irritant req S3FAILURE S3/CONTENT
 			   (s3loc->string loc))))))
-(define s3/get+ s3loc/get+)
 
 ;;; Basic S3 network metadata methods
 
-(define (s3loc/modified loc (headers))
+(define (s3/modtime loc (headers))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers) '()))
-  (let ((info (s3loc/head loc headers)))
+  (let ((info (s3/head loc headers)))
     (try (get info 'last-modified) #f)))
-(define s3/modified s3loc/modified)
 
-(define (s3loc/exists? loc (headers))
+(define (s3/exists? loc (headers))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers) '()))
-  (let ((info (s3loc/head loc headers)))
+  (let ((info (s3/head loc headers)))
     (response/ok? info)))
-(define s3/exists? s3loc/exists?)
 
-(define (s3loc/etag loc (compute #f) (headers))
+(define (s3/etag loc (compute #f) (headers))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers) '()))
-  (let ((req (s3loc/head loc headers)))
+  (let ((req (s3/head loc headers)))
     (and (response/ok? req)
-	 (try (get req 'etag) (and compute (md5 (s3loc/content loc)))))))
-(define s3/etag s3loc/etag)
+	 (try (get req 'etag) (and compute (md5 (s3/content loc)))))))
 
-(define (s3loc/ctype loc)
+(define (s3/ctype loc)
   (when (string? loc) (set! loc (->s3loc loc)))
-  (get (s3loc/head loc) 'content-type))
-(define s3/ctype s3loc/ctype)
+  (get (s3/head loc) 'content-type))
 
 (define etag-pat #((bos) {"" "\"" "&quot;"} (label hash (isxdigit+))))
 
-(define (s3loc/info loc (headers) (text #f) (opts #f))
+(define (s3/info loc (headers) (text #f) (opts #f))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! headers (try (get (s3loc/opts loc) 'headers)
 			 (getopt opts 'headers '())))
@@ -680,11 +674,10 @@
 	     'last-modified (try (get req 'last-modified) (timestamp))
 	     'etag (get req 'etag)
 	     'hash hash 'md5 (packet->base16 hash))))))
-(define s3/info s3loc/info)
 
 ;;; Basic S3 network write methods
 
-(define (s3loc/put loc content (ctype) (headers) (opts #f))
+(define (s3/put loc content (ctype) (headers) (opts #f))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! ctype
     (path->mimetype (s3loc-path loc)
@@ -699,9 +692,8 @@
   (when (not content) (error |NoContent| "No content to S3LOC/PUT"))
   (s3/op "PUT" (s3loc-bucket loc) (s3loc-path loc) opts
     content ctype headers))
-(define s3/put s3loc/put)
 
-(define (s3loc/copy! from to (opts #f) (inheaders #f) (outheaders #f))
+(define (s3/copy from to (opts #f) (inheaders #f) (outheaders #f))
   (when (string? to) (set! to (->s3loc to)))
   (when (string? from) (set! from (->s3loc from)))
   (unless inheaders
@@ -717,7 +709,7 @@
   (when (testopt opts 'outheaders)
     (set! outheaders (append (getopt opts 'outheaders) outheaders)))
 
-  (let* ((head (s3loc/head from inheaders))
+  (let* ((head (s3/head from inheaders))
 	 (mimetable (getopt opts 'mimetable #f))
 	 (ctype (try (get head 'content-type)
 		     (path->mimetype
@@ -733,16 +725,16 @@
 	     ("x-amz-metadata-directive" . "COPY")
 	     ,@inheaders
 	     ,@outheaders))))
-(define s3/copy! s3loc/copy!)
+(define s3/copy! (fcn/alias s3/copy))
 
-(define (s3loc/link! src loc (opts #f))
+(define (s3/link! src loc (opts #f))
   (when (string? loc) (set! loc (->s3loc loc)))
   (when (and (string? src) (not (has-prefix src {"http:" "https:" "ftp:"})))
     (set! src (->s3loc src)))
   (if opts
       (set! opts (cons opts (try (cons (s3loc/opts loc) s3opts)  s3opts)))
       (set! opts (try (cons (s3loc/opts loc) s3opts)  s3opts)))
-  (let* ((head (tryif (s3loc? src) (s3loc/head src)))
+  (let* ((head (tryif (s3loc? src) (s3/head src)))
 	 (mimetable (getopt opts 'mimetable #f))
 	 (ctype (try (get head 'content-type)
 		     (path->mimetype
@@ -758,9 +750,8 @@
 	      ,(if (s3loc? src)
 		   (stringout "/" (s3loc-bucket src) (s3loc-path src))
 		   src))))))
-(define s3/link! s3loc/link!)
 
-(define (s3loc/modify! loc (new #[]) (opts))
+(define (s3/metadata! loc (new #[]) (opts))
   (when (string? loc) (set! loc (->s3loc loc)))
   (default! opts
     (if (exists? (get (s3loc/opts loc) 'err))
@@ -768,7 +759,7 @@
 	s3opts))
   (when (not (table? opts)) (set! opts (cons `#[errs ,opts] s3opts)))
   (let* ((inheaders (getopt opts 'inheaders '()))
-	 (head (s3loc/head loc inheaders))
+	 (head (s3/head loc inheaders))
 	 (mimetable (getopt opts 'mimetable #f))
 	 (ctype (try (get new 'content-type)
 		     (get new 'mimetype)
@@ -801,7 +792,6 @@
 	     ("x-amz-metadata-directive" . "REPLACE")
 	     ,@inheaders
 	     ,@outheaders))))
-(define s3/modify! s3loc/modify!)
 
 ;;; Listing loc
 
@@ -855,7 +845,6 @@
      (for-choices (path (difference keys selfpath))
        (make-s3loc (s3loc-bucket loc) path))
      (tryif next (s3/list loc headers opts next)))))
-(module-export! 's3/list)
 
 (define (s3/list+ loc (headers) (opts #f) (next #f))
   (when (string? loc) (set! loc (->s3loc loc)))
@@ -898,7 +887,6 @@
 	   'content-encoding (get elt 'content-encoding)
 	   'hash hash 'md5 (packet->base16 hash))))
      (tryif next (s3/list+ loc headers opts next)))))
-(module-export! 's3/list+)
 
 ;;; Recursive deletion
 
@@ -915,7 +903,6 @@
 	  (s3/axe! path headers)
 	  (begin (s3/delete! path headers)
 	    (when pause (sleep pause)))))))
-(module-export! 's3/axe!)
 
 ;;; Recursive copying
 
@@ -1154,7 +1141,7 @@
 	      (tryif (exists? (textmatcher (cadr rule) (s3loc-path loc)))
 		(textsubst (s3loc-path loc) (cadr rule))))))))
 
-(define (s3loc/content loc (text #t) (headers '()) (opts #f))
+(define (s3/content loc (text #t) (headers '()) (opts #f))
   (when (string? loc) (set! loc (->s3loc loc)))
   (if opts
       (set! opts (cons opts (try (cons (s3loc/opts loc) s3opts)  s3opts)))
@@ -1168,9 +1155,8 @@
 	 (if (and status (>= 299 status 200))
 	     (get req '%content)
 	     (and (if (table? opts) (getopt opts 'errs) opts)
-		  (irritant req S3FAILURE S3LOC/CONTENT
+		  (irritant req S3FAILURE S3/CONTENT
 				(s3loc->string loc)))))))
-(define s3/get s3loc/content)
 
 ;;;; Downloads
 
