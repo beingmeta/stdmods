@@ -1,4 +1,0 @@
-[submodule "brico"]
-	path = brico
-	url = git@github.com:beingmeta/brico.git
-	branch = trunk
