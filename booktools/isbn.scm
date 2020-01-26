@@ -6,7 +6,7 @@
 ;;;  https://uva.onlinejudge.org/external/3/333.html
 ;;;  https://en.wikipedia.org/wiki/International_Standard_Book_Number
 
-(in-module 'isbn)
+(in-module 'booktools/isbn)
 (module-export! 'isbn?)
 
 (define gs1-prefixes {"978" "979"})

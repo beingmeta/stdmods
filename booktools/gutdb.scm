@@ -1,6 +1,6 @@
 ;;; -*- Mode: scheme; Character-encoding: utf-8; -*-
 
-(in-module 'gutdb)
+(in-module 'booktools/gutdb)
 
 (use-module '{texttools webtools logger domutils domutils/index varconfig})
 

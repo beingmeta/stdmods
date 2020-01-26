@@ -1,6 +1,6 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 
-(in-module 'hathitrust)
+(in-module 'booktools/hathitrust)
 
 ;;; Provides access to the Hathitrust API
 

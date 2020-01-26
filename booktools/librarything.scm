@@ -1,6 +1,6 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 
-(in-module 'librarything)
+(in-module 'booktools/librarything)
 
 ;;; Provides access to the LibraryThing API
 

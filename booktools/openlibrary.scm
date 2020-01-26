@@ -1,6 +1,6 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 
-(in-module 'openlibrary)
+(in-module 'booktools/openlibrary)
 
 ;;; Provides access to the Open Library API
 
