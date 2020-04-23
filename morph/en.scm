@@ -10,7 +10,8 @@
 
 (module-export!
  '{noun-root verb-root noun-roots verb-roots
-	     gerund stop-words wordfreqs
+	     gerund add-ing add-ed add-s
+	     stop-words wordfreqs
 	     prepositions aux-words glue-words pronouns
 	     determiners conjunctions
 	     adjectives adjectiveset
@@ -51,6 +52,18 @@
       (when (has-suffix key "ing")
 	(add! table (get irregular-verbs key) key)))
     table))
+(define ed-forms
+  (let ((table (make-hashtable)))
+    (do-choices (key (getkeys irregular-verbs))
+      (when (has-suffix key "ed")
+	(add! table (get irregular-verbs key) key)))
+    table))
+(define s-forms
+  (let ((table (make-hashtable)))
+    (do-choices (key (getkeys irregular-verbs))
+      (when (has-suffix key "s")
+	(add! table (get irregular-verbs key) key)))
+    table))
 
 (define gerund-rules
   '(#((+ (isnotvowel)) (isvowel)
@@ -89,7 +102,7 @@
     (append (verb-root (subseq x 0 pos) verbtest)
 	    (subseq x pos))))
 
-(define (base-gerund x)
+(define (base-add-ing x)
   (try (get ing-forms x)
        (morphrule x
 		  '(("ee" . "eeing")
@@ -105,11 +118,53 @@
 		    ("" . "ing"))
 		  #t)))
 
-(define (gerund x)
+(define (add-ing x)
   (if (position #\Space x)
       (let ((pos (position #\Space x)))
-	(stringout (base-gerund (subseq x 0 pos)) (subseq x pos)))
-      (base-gerund x)))
+	(stringout (base-add-ing (subseq x 0 pos)) (subseq x pos)))
+      (base-add-ing x)))
+(define gerund (fcn/alias add-ing))
+
+(define (base-add-ed x)
+  (try (get ed-forms x)
+       (morphrule x
+		  '(("ee" . "eed")
+		    ("e" . "ed")
+		    #((+ (isnotvowel)) (isvowel)
+		      {(SUBST "b" "bbed")
+		       (SUBST "d" "dded")
+		       (SUBST "g" "gged")
+		       (SUBST "n" "nned")
+		       (SUBST "p" "pped")
+		       (SUBST "r" "rred")
+		       (SUBST "t" "tted")})
+		    ("" . "ed"))
+		  #t)))
+
+(define (add-ed x)
+  (if (position #\Space x)
+      (let ((pos (position #\Space x)))
+	(stringout (base-add-ed (subseq x 0 pos)) (subseq x pos)))
+      (base-add-ed x)))
+
+(define (base-add-s x)
+  (try (get s-forms x)
+       (morphrule x
+		  '(("sh" . "shes")
+		    ("ch" . "ches")
+		    ("x" . "xes")
+		    ("z" . "zes")
+		    ("s" . "ses")
+		    #({"a" "e" "i" "o" "u"} (SUBST "y" "ys"))
+		    ("y" . "ies")
+		    ("" . "s"))
+		  #t)))
+
+(define (add-s x)
+  (if (position #\Space x)
+      (let ((pos (position #\Space x)))
+	(stringout (base-add-s (subseq x 0 pos)) (subseq x pos)))
+      (base-add-s x)))
 
 ;;;; Stop words
 
