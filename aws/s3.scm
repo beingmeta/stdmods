@@ -19,12 +19,12 @@
 		  s3/etag s3/modtime s3/info
 		  s3/list s3/list+
 		  s3/content s3/put s3/link!
-		  s3/modify!})
+		  s3/metadata!})
 (module-export! '{s3/get s3/get+ s3/head s3/ctype s3/exists?
 		  s3/modtime s3/etag s3/info
 		  s3/put s3/write! s3/delete! s3/copy s3/copy!
 		  s3/link! s3/metadata!
-		  s3/copy* s3/axe! s3/push!
+		  s3/copy*! s3/axe! s3/push!
 		  s3/download!
 		  s3/bucket?})
 (module-export! '{s3/signature s3/op s3/expected
@@ -783,7 +783,7 @@
 		  outheaders)))
     (do-choices (key (pickstrings (getkeys new)))
       (set! outheaders (cons (cons key (get new key)) outheaders)))
-    (lognotice |S3/modify| "Modifying " ctype " " (s3loc->string loc)
+    (lognotice |S3/metadata| "Modifying " ctype " " (s3loc->string loc)
 	       " metadata to " outheaders)
     (s3/op "PUT" (s3loc-bucket loc) (s3loc-path loc) opts "" ctype
 	   `(("x-amz-copy-source" .
