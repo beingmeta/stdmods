@@ -20,7 +20,7 @@
 	 ((applicable? fn) (forseq (v vec) (fn v)))
 	 ((table? fn) (forseq (v vec) (get fn v)))
 	 (else (irritant fn |InvalidFunction|)))))
-(defambda (stddev x (fn #f))
+(defambda (stddev x (fn #f) (vec))
   (set! vec
     (if (and (singleton? x) (or (vector? x) (list? x)))
 	(->vector x)
