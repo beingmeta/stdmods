@@ -83,7 +83,7 @@
 		    (curl) (date (gmtimestamp))
 		    (token) (hdrset (make-hashset)))
   (default! curl (getopt opts 'handle (getcurl)))
-  (aws/checkok req)
+  (aws/checkok req endpoint)
   (unless date (set! date (gmtimestamp)))
   (default! token
     (getopt req 'aws:token (getopt opts 'aws:token aws:token)))
@@ -148,7 +148,7 @@
 		   (curl)
 		   (token) (hdrset (make-hashset)))
   (default! curl (getopt opts 'handle (getcurl)))
-  (aws/checkok req)
+  (aws/checkok req endpoint)
   (unless date (set! date (gmtimestamp 'seconds)))
   (default! token
     (getopt req 'aws:token (getopt opts 'aws:token aws:token)))

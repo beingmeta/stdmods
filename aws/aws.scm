@@ -154,25 +154,20 @@
     " Algorithm=" (try (get spec 'algorithm) "HmacSHA1")
     " Signature=" (packet->base64 (aws/datesig date spec))))
 
-(define (aws/ok? (opts #f) (err #f))
-  (if (or (not opts) 
-	  (not (getopt opts 'aws:secret
-		       (getopt aws:config aws:secret))))
-      (if (not aws:secret)
-	  (and err (error |NoAWSCredentials| opts))
-	  (or (not aws:expires) (> (difftime aws:expires) 3600)
-	      (and aws/refresh 
-		   (begin (lognotice |RefreshToken| aws:key)
-		     (aws/refresh #f)))
-	      (and err (error |ExpiredAWSCredentials| aws:key))))
-      (or (not (getopt opts 'aws:expires))
-	  (> (difftime (getopt opts 'aws:expires)) 3600)
-	  (and aws/refresh 
-	       (begin (lognotice |RefreshToken| aws:key)
-		 (aws/refresh opts)))
-	  (and err (error |ExpiredAWSCredentials| aws:key)))))
+(define (aws/ok? (req #f) (err #f))
+  (let ((key (getopt req 'aws:key aws:key))
+	(secret (getopt req 'aws:secret aws:secret))
+	(expires (getopt req 'aws:expires))
+	(details (and (string? err) err)))
+    (cond ((not key) (irritant req |NoAWSCredentials| details))
+	  ((not secret) (irritant req |NoAWSSecret| details))
+	  ((not expires) #t)
+	  ((and aws/refresh (> (difftime expires) 3600))
+	   (lognotice |RefreshToken| aws:key)
+	   (aws/refresh req))
+	  (else (irritant req |ExpiredAWSCredentials| details)))))
 
-(define (aws/checkok (opts #f)) (aws/ok? opts #t))
+(define (aws/checkok (opts #f) (endpoint #t)) (aws/ok? opts endpoint))
 
 (define (aws/set-creds! key secret (token #f) (expires #f) (refresh #f))
   (info%watch "AWS/SET-CREDS!" key secret token expires refresh)

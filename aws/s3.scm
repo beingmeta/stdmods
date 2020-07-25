@@ -261,19 +261,16 @@
 		       "After "  max " retries, couldn't " 
 		       op " s3://" bucket "/" path 
 		       " given \n  " (pprint opts) "\nlast result:\n  " 
-		       (pprint irritant)))
+		       (listdata irritant)))
 	      (if (getopt opts 's3err)
-		  (s3-error (getopt irritant 'httpstatus)
-			    irritant op bucket path opts)
-		  (begin (s3-warn (getopt irritant 'httpstatus)
-				  (cdr irritant) (car irritant)
-				  op bucket path opts)
+		  (s3-error (getopt irritant 'httpstatus) irritant op bucket path opts)
+		  (begin (s3-warn (getopt irritant 'httpstatus) irritant op bucket path opts)
 		    irritant)))
 	    (begin
 	      (logwarn |S3/Retry|
 		"Retrying " op " s3://" bucket "/" path
 		" after " (1+ tries) "/" max " attempts.")
-	      (lognotice |S3/Retry| "Last response was:\n  " (pprint irritant))
+	      (lognotice |S3/Retry| "Last response was:\n  " (listdata irritant))
 	      (tryop (1+ tries) max op bucket path opts content 
 		     ctype headers args)))))))
 
@@ -353,36 +350,38 @@
 		      (if (has-prefix path "/") "" "/")
 		      path))))
 
-(define (s3-warn status request response op bucket path opts)
-  (cond ((= status 404)
-	 (lognotice |S3/NotFound| 
-	   op " " (glom "s3://" bucket
-		    (if (has-prefix path "/") "" "/")
-		    path)
-	   (if (or (not opts) (empty? (getkeys opts)))
-	       " (no opts)"
-	       (printout "\n\t" (pprint opts)))
-	   "\nREQ\t" (pprint request)
-	   "\nRESP\t" (pprint response)))
-	((= status 403)
-	 (logwarn |S3/Forbidden|
-	   op " " (glom "s3://" bucket "/" path)
-	   (if (or (not opts) (empty? (getkeys opts)))
-	       " (no opts)"
-	       (printout "\n\t" (pprint opts)))
-	   "\nREQ\t" (pprint request)
-	   "\nRESP\t" (pprint response)))
-	(else
-	 (logwarn |S3/Failure|
-	   op " " (glom "s3://" bucket
-		    (if (has-prefix path "/") "" "/")
-		    path) " "
-	   (try (get request 'header) "")
-	   (if (or (not opts) (empty? (getkeys opts)))
-	       " (no opts)"
-	       (printout "\n\t" (pprint opts)))
-	   "\nREQ\t" (pprint request)
-	   "\nRESP\t" (pprint response)))))
+(define (s3-warn status irritant op bucket path opts)
+  (let ((request (if (pair? irritant) (car irritant) irritant))
+	(response (and (pair? irritant) (cd irritant))))
+    (cond ((= status 404)
+	   (lognotice |S3/NotFound| 
+	     op " " (glom "s3://" bucket
+		      (if (has-prefix path "/") "" "/")
+		      path)
+	     (if (or (not opts) (empty? (getkeys opts)))
+		 " (no opts)"
+		 (printout "\n\t" (pprint opts)))
+	     "\nREQ\t" (pprint request)
+	     "\nRESP\t" (pprint response)))
+	  ((= status 403)
+	   (logwarn |S3/Forbidden|
+	     op " " (glom "s3://" bucket "/" path)
+	     (if (or (not opts) (empty? (getkeys opts)))
+		 " (no opts)"
+		 (printout "\n\t" (pprint opts)))
+	     "\nREQ\t" (pprint request)
+	     "\nRESP\t" (pprint response)))
+	  (else
+	   (logwarn |S3/Failure|
+	     op " " (glom "s3://" bucket
+		      (if (has-prefix path "/") "" "/")
+		      path) " "
+		      (try (get request 'header) "")
+		      (if (or (not opts) (empty? (getkeys opts)))
+			  " (no opts)"
+			  (printout "\n\t" (pprint opts)))
+		      "\nREQ\t" (pprint request)
+		      "\nRESP\t" (pprint response))))))
 
 (define (s3/expected response)
   (->string (map (lambda (x) (integer->char (string->number x 16)))
@@ -618,8 +617,7 @@
 	  'etag (get req 'etag)
 	  'hash (tryif hash hash)
 	  'md5 (tryif hash (packet->base16 hash)))
-	(and err (irritant req S3FAILURE S3/CONTENT
-			   (s3loc->string loc))))))
+	(and err (irritant req S3FAILURE S3/GET+ (s3loc->string loc))))))
 
 ;;; Basic S3 network metadata methods
 
