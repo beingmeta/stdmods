@@ -18,12 +18,12 @@
 	     adverbs adverbset})
 
 (define irregular-nouns
-  (file->dtype (get-component "data/en-noun-roots.dtype"))
+  (read-xtype (get-component "data/en-noun-roots.xtype"))
   ;; (use-index (get-component "data/en-noun-roots.index"))
   )
 (define noun-roots
   (choice->hashset
-   (qc (file->dtypes (get-component "data/en-noun.dtype")))))
+   (qc (read-xtype (get-component "data/en-noun.xtype")))))
 
 (define plural-rules
   '(#({"a" "e" "i" "o" "u"} (subst "ies" "y")) 
@@ -41,11 +41,11 @@
       (cons (car segmented) (compound-noun-root (cdr segmented) nountest))))
 
 (define irregular-verbs
-  (file->dtype (get-component "data/en-verb-roots.dtype"))
+  (read-xtype (get-component "data/en-verb-roots.xtype"))
   ;; (use-index (get-component "data/en-verb-roots.index"))
   )
 (define verb-roots
-  (choice->hashset (file->dtypes (get-component "data/en-verb.dtype"))))
+  (choice->hashset (read-xtype (get-component "data/en-verb.xtype"))))
 (define ing-forms
   (let ((table (make-hashtable)))
     (do-choices (key (getkeys irregular-verbs))
@@ -169,7 +169,7 @@
 ;;;; Stop words
 
 (define stop-words
-  (let ((data (file->dtypes (get-component "data/en-stop-words.dtype"))))
+  (let ((data (read-xtype (get-component "data/en-stop-words.xtype"))))
     (if (and (singleton? data) (hashset? data))
 	data
 	(choice->hashset data))))
@@ -177,29 +177,29 @@
 ;;;; Other categories
 
 (define glue-words
-  (file->dtypes (get-component "data/en-glue-words.dtype")))
+  (read-xtype (get-component "data/en-glue-words.xtype")))
 
 (define pronouns
-  (file->dtypes (get-component "data/en-pronouns.dtype")))
+  (read-xtype (get-component "data/en-pronouns.xtype")))
 
 (define aux-words
-  (file->dtypes (get-component "data/en-aux-words.dtype")))
+  (read-xtype (get-component "data/en-aux-words.xtype")))
 
 (define prepositions
-  (file->dtypes (get-component "data/en-prepositions.dtype")))
+  (read-xtype (get-component "data/en-prepositions.xtype")))
 
 (define determiners
-  (file->dtypes (get-component "data/en-determiners.dtype")))
+  (read-xtype (get-component "data/en-determiners.xtype")))
 
 (define conjunctions
-  (file->dtypes (get-component "data/en-conjunctions.dtype")))
+  (read-xtype (get-component "data/en-conjunctions.xtype")))
 
 (define adverbs
-  (file->dtypes (get-component "data/en-adverbs.dtype")))
+  (read-xtype (get-component "data/en-adverbs.xtype")))
 (define adverbset (choice->hashset adverbs))
 
 (define adjectives
-  (file->dtypes (get-component "data/en-adjectives.dtype")))
+  (read-xtype (get-component "data/en-adjectives.xtype")))
 (define adjectiveset (choice->hashset adjectives))
 
 (hashset-add! stop-words
@@ -209,7 +209,7 @@
 ;;; Word frequencies
 
 (define wordfreqs
-  (file->dtypes (get-component "data/en-freqs.dtype")))
+  (read-xtype (get-component "data/en-freqs.xtype")))
 
 ;;; Interfacing with BRICO
 

@@ -16,13 +16,13 @@
 (define dataroot (get-component "data/"))
 
 (define english-word-freqs
-  (zipfile->dtype (get-component "data/en-word-freq.ztable")))
+  (read-xtype (get-component "data/en-word-freq.xtable")))
 (define english-root-freqs
-  (zipfile->dtype (get-component "data/en-root-freq.ztable")))
+  (read-xtype (get-component "data/en-root-freq.xtable")))
 (define english-word-relfreqs
-  (zipfile->dtype (get-component "data/en-word-relfreq.ztable")))
+  (read-xtype (get-component "data/en-word-relfreq.xtable")))
 (define english-root-relfreqs
-  (zipfile->dtype (get-component "data/en-root-relfreq.ztable")))
+  (read-xtype (get-component "data/en-root-relfreq.xtable")))
 
 
 
