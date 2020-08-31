@@ -392,7 +392,7 @@
   "This outputs a dterm for HTML, primarily converting xx$ language prefixes \
    into subscripts."
   (let ((disambig-start
-	 (textsearch `(CHOICE "," ":" #((spaces*) "(")) string start)))
+	 (textsearch #{"," ":" #((spaces*) "(")} string start)))
     (if disambig-start
 	(begin (langterm->html string 0 disambig-start)
 	       (span ((class "disambig"))
