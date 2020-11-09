@@ -84,46 +84,46 @@
   (if (eq? cookie auth-cookie)
       (set! cachename auth-cache)
       (set! cachename (string->symbol (glom "_" cookie))))
-  (req/get cachename
-	   (let* ((bjwt (try (jwt/parse (get-bearer-token) jwtarg) #f))
-		  (jwt #f))
-	     (if (not bjwt)
-		 (set! jwt (jwt/parse (or (req/get cookie {}) {}) jwtarg))
-		 (set! jwt bjwt))
-	     (when (not jwt)
-	       (loginfo |JWT/AUTH/getinfo| 
-		 "Couldn't get JWT " jwt " from bearer or " cookie))
-	     (when jwt 
-	       (if (time-earlier? (jwt-expiration jwt))
-		   (loginfo |JWT/AUTH/getinfo|
-		     "Got JWT " jwt " from " 
-		     (if bjwt "Bearer authorization" cookie) 
-		     "\n    w/payload " (pprint (jwt-payload jwt)))
-		   (let ((new (jwt/refresh jwt jwtarg)))
-		     (unless (equal? new jwt)
-		       (unless bjwt
-			 (when new
-			   (loginfo |JWT/AUTH/getinfo| 
-			     "Refreshed JWT " jwt " to " new " from " 
-			     (if bjwt "Bearer authorization" cookie) 
-			     "\n    w/old payload " (pprint (jwt-payload jwt))
-			     "\n    w/new payload " (pprint (jwt-payload new)))
-			   (req/set! cachename new)
-			   (req/set! cookie (jwt-text new))
-			   (set-cookie! cookie (jwt-text new) cookie-host cookie-path
-					(and (jwt/get new 'sticky)
-					     (time+ (jwt/get new 'sticky)))
-					#t))
-			 (unless new
-			   (logwarn |JWT/AUTH/getinfo| 
-			     "Failed to refreshed JWT " jwt " from " 
-			     (if bjwt "Bearer authorization" cookie) 
-			     "\n    w/payload " (pprint (jwt-payload jwt)))
-			   (req/drop! cachename)
-			   (req/drop! cookie)))
-		       (set! jwt new)))))
-	     (when jwt (req/set! cachename jwt))
-	     jwt)))
+  (or (req/get cachename #f)
+      (let* ((bjwt (try (jwt/parse (get-bearer-token) jwtarg) #f))
+	     (jwt #f))
+	(if (not bjwt)
+	    (set! jwt (jwt/parse (or (req/get cookie {}) {}) jwtarg))
+	    (set! jwt bjwt))
+	(when (not jwt)
+	  (loginfo |JWT/AUTH/getinfo| 
+	    "Couldn't get JWT " jwt " from bearer or " cookie))
+	(when jwt 
+	  (if (time-earlier? (jwt-expiration jwt))
+	      (loginfo |JWT/AUTH/getinfo|
+		"Got JWT " jwt " from " 
+		(if bjwt "Bearer authorization" cookie) 
+		"\n    w/payload " (pprint (jwt-payload jwt)))
+	      (let ((new (jwt/refresh jwt jwtarg)))
+		(unless (equal? new jwt)
+		  (unless bjwt
+		    (when new
+		      (loginfo |JWT/AUTH/getinfo| 
+			"Refreshed JWT " jwt " to " new " from " 
+			(if bjwt "Bearer authorization" cookie) 
+			"\n    w/old payload " (pprint (jwt-payload jwt))
+			"\n    w/new payload " (pprint (jwt-payload new)))
+		      (req/set! cachename new)
+		      (req/set! cookie (jwt-text new))
+		      (set-cookie! cookie (jwt-text new) cookie-host cookie-path
+				   (and (jwt/get new 'sticky)
+					(time+ (jwt/get new 'sticky)))
+				   #t))
+		    (unless new
+		      (logwarn |JWT/AUTH/getinfo| 
+			"Failed to refreshed JWT " jwt " from " 
+			(if bjwt "Bearer authorization" cookie) 
+			"\n    w/payload " (pprint (jwt-payload jwt)))
+		      (req/drop! cachename)
+		      (req/drop! cookie)))
+		  (set! jwt new)))))
+	(when jwt (req/set! cachename jwt))
+	jwt)))
 (define (extract-bearer string)
   (get (text->frame #((bos) (spaces*) "Bearer" (spaces) (label token (rest)))
 		    string)
@@ -138,15 +138,15 @@
   (if (eq? cookie auth-cookie)
       (set! idcache identity-cache)
       (set! idcache (string->symbol (glom "__" cookie))))
-  (req/get idcache
-	   (let* ((jwt (auth/getinfo cookie jwtarg err))
-		  (id (tryif jwt (parse-arg (jwt/get jwt 'sub)))))
-	     (when (and (exists? jwt) (fail? id))
-	       (logwarn |JWT/AUTH/noid| "Couldn't get id (sub) from " jwt))
-	     (when (exists? id)
-	       (loginfo |JWT/AUTH/getid| "Got id " id " from " jwt)
-	       (req/set! idcache id))
-	     (try id #f))))
+  (or (req/get idcache #f)
+      (let* ((jwt (auth/getinfo cookie jwtarg err))
+	     (id (tryif jwt (parse-arg (jwt/get jwt 'sub)))))
+	(when (and (exists? jwt) (fail? id))
+	  (logwarn |JWT/AUTH/noid| "Couldn't get id (sub) from " jwt))
+	(when (exists? id)
+	  (loginfo |JWT/AUTH/getid| "Got id " id " from " jwt)
+	  (req/set! idcache id))
+	(try id #f))))
 
 (define (auth/sticky? (arg auth-cookie))
   (if (jwt? arg)
