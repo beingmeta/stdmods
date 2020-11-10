@@ -18,7 +18,8 @@
    text/getroots
    text/settings text/reduce
    text/phrasemap
-   text/index text/analyze})
+   text/index!
+   text/analyze})
 
 (define-init %loglevel %notify%)
 
@@ -196,12 +197,15 @@
 		       (get text-settings 'xfns))
 	       options))
 
-(define (text/index! index f slotid (value) (options #[]))
-  (unless (or (not (bound? value)) value) (set! value (get f slotid)))
-  (let ((ks (text/keystrings value options)))
-    (when (exists? ks)
-      (index-frame index f slotid ks)
-      (index-frame index f 'has slotid))))
+(define (text/index! index f slotid (arg1 #f) (arg2 #f))
+  (let* ((value (if (string? arg1) arg1
+		    (if (string? arg2) arg2
+			(try (get f slotid)  #f))))
+	 (opts (if (opts? arg1) arg1 (if (opts? arg2) arg2 #f)))
+	 (keyslot (getopt opts 'keyslot slotid)))
+    (let ((ks (text/keystrings value opts)))
+      (when (exists? ks)
+	(index-frame index f keyslot ks)))))
 
 (defambda (text/analyze passages options)
   ;; (info%watch "TEXT/ANALYZE" options)
@@ -303,7 +307,7 @@
 	      (opt #("?" (not> "#")))
 	      (opt #("#" (rest))))
 	    ;; Email address
-	    #((+ {#(isalnum+) "." "-" "_"}) "@"
+	    #((+ {(isalnum+) "." "-" "_"}) "@"
 	      (+ #((isalnum+) ".")) (isalnum+))
 	    }))
 
