@@ -352,7 +352,7 @@
 
 (define (s3-warn status irritant op bucket path opts)
   (let ((request (if (pair? irritant) (car irritant) irritant))
-	(response (and (pair? irritant) (cd irritant))))
+	(response (and (pair? irritant) (cdr irritant))))
     (cond ((= status 404)
 	   (lognotice |S3/NotFound| 
 	     op " " (glom "s3://" bucket
