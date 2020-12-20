@@ -1,11 +1,11 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'aws/ses)
 
 (module-export! '{ses/call ses/rawcall ses/sendmail ses/send})
 
-(use-module '{aws webtools texttools mimeout logger email varconfig})
+(use-module '{aws webtools texttools curl net/mimeout logger net/email varconfig})
 (define %used_modules '{aws})
 
 (define-init %loglevel %notice%)

@@ -4,7 +4,7 @@
 
 ;;; Provides access to the LibraryThing API
 
-(use-module '{webtools varconfig texttools ezrecords parsetime logger})
+(use-module '{webtools varconfig texttools ezrecords text/parsetime logger})
 
 (module-export! '{lt/call lt/minimize lt/nohistory lt/getwork})
 
@@ -36,7 +36,7 @@
       (drop! item 'commonknowledge))
     items))
 (define (lt/getwork . args)
-  (apply lt/get "getwork" args))
+  (apply lt/call "getwork" args))
 
 (define (lt/minimize item)
   (drop! item 'fields)

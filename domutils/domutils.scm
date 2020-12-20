@@ -1,9 +1,9 @@
 ;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'domutils)
 
-(use-module '{webtools texttools reflection ezrecords
+(use-module '{webtools texttools kno/reflect ezrecords
 	      varconfig logger})
 
 (define %used_modules '{varconfig ezrecords})

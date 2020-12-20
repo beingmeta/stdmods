@@ -1,17 +1,17 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'aws/ec2)
 
 (use-module '{logger logctl})
 (define %loglevel %notify%)
 
-(use-module '{webtools texttools mimetable regex 
+(use-module '{webtools texttools net/mimetable regex 
 	      findpath gpath varconfig})
 (use-module '{aws aws/v4})
 
 ;; Don't issue warnings for these packages when being persnickety
-(define %used_modules '{aws varconfig})
+(define %used_modules '{apis/aws varconfig})
 
 (module-export! '{ec2/op ec2/filtered
 		  ec2/instances ec2/images 

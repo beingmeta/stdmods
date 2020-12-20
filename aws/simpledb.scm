@@ -1,7 +1,7 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
-(in-module '{aws/simpledb})
+(in-module 'aws/simpledb)
 
 ;;; Accessing Amazon Simple DB
 
@@ -15,7 +15,7 @@
 (module-export! '{sdb/domains sdb/domains/new
 		  sdb/domain/info sdb/domain/drop!})
 
-(use-module '{aws webtools texttools logger webtools varconfig jsonout rulesets})
+(use-module '{aws webtools texttools logger webtools varconfig io/jsonout kno/rulesets})
 
 (define-init %loglevel %notice%)
 

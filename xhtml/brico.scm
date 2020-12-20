@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved
 
 (in-module 'xhtml/brico)
 
-(use-module '{reflection texttools})
+(use-module '{kno/reflect texttools})
 (use-module '{webtools xhtml xhtml/clickit i18n})
 (use-module '{brico brico/dterms brico/analytics})
 

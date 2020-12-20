@@ -1,5 +1,5 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2010-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2010-2020 beingmeta, inc.  All rights reserved.
 
 ;;; This is a serialization module for Kno structures, especially
 ;;;  ones partially constituted of "relative OIDs" whose identity is
@@ -34,7 +34,7 @@
 
 (in-module 'ice)
 
-(use-module '{reflection logger})
+(use-module '{kno/reflect logger})
 
 (module-export! '{ice/freeze ice/thaw})
 

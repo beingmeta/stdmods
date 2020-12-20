@@ -2,11 +2,11 @@
 
 ;; English Morphology
 ;;  Copyright (C) 2001 Kenneth Haase, All Rights Reserved
-;;  Copyright (C) 2001-2018 beingmeta, inc.
+;;  Copyright (C) 2001-2020 beingmeta, inc.
 
 (in-module 'morph/en)
 
-(use-module 'texttools)
+(use-module '{texttools binio})
 
 (module-export!
  '{noun-root verb-root noun-roots verb-roots

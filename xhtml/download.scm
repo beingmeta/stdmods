@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved
 
 (in-module 'xhtml/download)
 
-(use-module '{webtools xhtml reflection mimetable varconfig})
+(use-module '{webtools xhtml kno/reflect net/mimetable varconfig})
 (define %used_modules '{varconfig})
 
 (define havezip (get-module 'ziptools))

@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'aws/roles)
 
-(use-module '{webtools texttools mimetable regex logctl opts
+(use-module '{webtools texttools net/mimetable regex logctl opts
 	      ezrecords rulesets logger varconfig})
 (use-module '{aws aws/v4 aws/ec2data})
 (define %used_modules '{aws varconfig ezrecords rulesets})

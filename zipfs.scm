@@ -1,13 +1,13 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'zipfs)
 
 ;;; Virtual file system implemented on top of zipfiles and hashtables
 
-(use-module '{mimetable ezrecords texttools 
+(use-module '{net/mimetable ezrecords texttools 
 	      logger gpath ziptools})
-(define %used_modules '{ezrecords mimetable})
+(define %used_modules '{ezrecords net/mimetable})
 
 (module-export! '{zipfs? zipfs/open zipfs/make zipfs/save!
 		  zipfs/filename zipfs/string
@@ -231,3 +231,24 @@
 	      (filedata (zip/filename (zipfs-zip zipfs)))
 	    "application/zip")))
       (error "This ZIPFS doesn't have a source" zipfs)))
+
+;;;; GPATH handlers
+
+(define (gpath/info zipfs path (opts #f))
+  (zipfs-info zipfs path opts))
+(define (gpath/fetch zipfs path (opts #f))
+  (zipfs-get+ zipfs path opts))
+(define (gpath/content zipfs path (opts #f))
+  (zipfs-get zipfs path opts))
+(define (gpath/write! zipfs path content ctype (opts #f))
+  (default! ctype 
+    (getopt opts 'mimetype
+	    (path->mimetype
+	     path (if (packet? data) "application" "text"))))
+  (zipfs/save! zipfs path content ctype (getopt opts 'metadata #f)))
+(define (gpath/open path opts) (zipfs/open path opts))
+
+(kno/handler! 'zipfs gpath/info)
+(kno/handler! 'zipfs gpath/fetch)
+(kno/handler! 'zipfs gpath/content)
+(kno/handler! 'zipfs gpath/open)

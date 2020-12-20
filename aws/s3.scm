@@ -1,11 +1,11 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'aws/s3)
 
-(use-module '{aws aws/v4 webtools texttools mimetable regex logctl
-	      ezrecords rulesets logger varconfig meltcache
-	      curlcache mttools})
+(use-module '{aws aws/v4 webtools texttools net/mimetable regex logctl
+	      ezrecords kno/rulesets logger varconfig kno/meltcache
+	      curlcache kno/mttools})
 (define %used_modules '{aws varconfig ezrecords rulesets})
 
 (module-export!
@@ -1236,6 +1236,25 @@
   (let* ((start (textsearch #("\"Statement\":" (spaces*) "[") policy))
 	 (end (and start (position #\[ policy start))))
     (and end (1+ end))))
+
+;;;; GPATH definitions
+
+(define (gpath/info s3loc path opts) 
+  (s3/info (if path (s3/mkpath s3loc path) s3loc)
+	   #default #f opts))
+(define (gpath/fetch s3loc path opts)
+  (s3/get (if path (s3/mkpath s3loc path) s3loc) #default opts))
+(define (gpath/content s3loc path opts)
+  (s3/content (if path (s3/mkpath s3loc path) s3loc) #t #default opts))
+(define (gpath/save! s3loc path content (ctype #f) (opts #f))
+  (s3/write! (if path (s3/mkpath s3loc path) s3loc) content ctype #default opts))
+(define (gpath/open path (opts #f)) (->s3loc path))
+
+(kno/set-handler! 's3loc gpath/info)
+(kno/set-handler! 's3loc gpath/fetch)
+(kno/set-handler! 's3loc gpath/content)
+(kno/set-handler! 's3loc gpath/save!)
+(kno/set-handler! 's3loc gpath/open)
 
 ;;; Some test code
 

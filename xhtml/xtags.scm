@@ -1,10 +1,10 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved
 
 (in-module 'xhtml/xtags)
 
-(use-module '{reflection texttools})
+(use-module '{kno/reflect texttools})
 (use-module '{xtags}) ;; brico brico/dterms
 (use-module '{webtools xhtml xhtml/clickit i18n xhtml/brico xhtml/beingmeta})
 

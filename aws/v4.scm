@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'aws/v4)
 
-(use-module '{aws opts webtools texttools logger varconfig curlcache})
+(use-module '{aws opts webtools texttools logger varconfig curl curlcache})
 (define %used_modules '{aws varconfig})
 
 (define-init %loglevel %notice%)

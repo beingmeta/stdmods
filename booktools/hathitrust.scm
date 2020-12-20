@@ -4,7 +4,7 @@
 
 ;;; Provides access to the Hathitrust API
 
-(use-module '{webtools varconfig texttools ezrecords parsetime logger})
+(use-module '{webtools varconfig texttools ezrecords text/parsetime logger binio})
 
 (module-export! '{ht/get ht/full ht/brief})
 

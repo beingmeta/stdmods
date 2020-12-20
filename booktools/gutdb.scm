@@ -2,7 +2,7 @@
 
 (in-module 'booktools/gutdb)
 
-(use-module '{texttools webtools logger domutils domutils/index varconfig})
+(use-module '{texttools webtools logger domutils domutils/index varconfig binio})
 
 (define-init %loglevel %notify%)
 

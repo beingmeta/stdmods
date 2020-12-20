@@ -1,10 +1,10 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 ;;; Utilites for indexing XML content, especially XHTML
 (in-module 'domutils/styles)
 
-(use-module '{reflection webtools xhtml texttools domutils varconfig logger})
+(use-module '{kno/reflect webtools xhtml texttools domutils varconfig logger})
 
 (module-export! '{css/dropdecimals css/roundpixels css/relfonts
 		  dom/normstyle dom/gather-styles!

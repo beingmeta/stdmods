@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'domutils/adjust)
 
-(use-module '{reflection webtools xhtml texttools domutils varconfig logger})
+(use-module '{kno/reflect webtools xhtml texttools domutils varconfig logger})
 
 (module-export! '{dom/adjust! dom/edit! dom/parsedit})
 

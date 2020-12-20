@@ -1,5 +1,5 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved.
 
 (in-module 'testmodules)
 
@@ -15,14 +15,14 @@
     sqloids ezrecords fakezip fifo fillin findcycles getcontent
     gpath gravatar gutdb hashfs hashstats histogram hostinfo i18n
     ice jsonout logctl logger meltcache mergeutils mimeout ;;  lexml
-    mimetable mttools oauth openlibrary optimize opts
+    net/mimetable kno/mttools oauth openlibrary optimize opts
     packetfns parsetime pump rdf readcsv recycle rss rulesets
     samplefns savecontent saveopt signature speling ;; soap
     stringfmts tinygis tracer trackrefs twilio updatefile ;; tighten
     usedb varconfig whocalls xtags})
 
 (define other-modules
-  '{(AWS AWS/S3 AWS/V4 AWS/SES AWS/SQS AWS/DYNAMODB
+  '{(AWS AWS/S3 APIS/AWS/V4 AWS/SES AWS/SQS AWS/DYNAMODB
 	 AWS/SIMPLEDB AWS/ASSOCIATES)
     (DOMUTILS DOMUTILS/CSS DOMUTILS/INDEX DOMUTILS/ADJUST DOMUTILS/STYLES
 	      DOMUTILS/ANALYZE DOMUTILS/CLEANUP DOMUTILS/LOCALIZE

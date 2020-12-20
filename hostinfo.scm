@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved
 
 (in-module 'hostinfo)
 
-(use-module '{webtools jsonout})
+(use-module '{webtools io/jsonout})
 
 (module-export! '{hostinfo/json hostinfo/field hostinfo})
 

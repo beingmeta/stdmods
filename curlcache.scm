@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2014-2018 beingmeta, inc. All rights reserved
+;;; Copyright (C) 2014-2020 beingmeta, inc. All rights reserved
 
 (in-module 'curlcache)
 
-(use-module '{webtools varconfig logger})
+(use-module '{webtools curl varconfig logger})
 (define %used_modules '{varconfig xhtml/auth})
 
 (define-init curlcache-default #t)

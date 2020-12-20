@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'swapcache)
 
-(use-module '{reflection ezrecords logger varconfig})
+(use-module '{kno/reflect ezrecords logger varconfig})
 
 (module-export!
  '{swc/make swc/get swc/modtime

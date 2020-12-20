@@ -4,7 +4,7 @@
 
 ;;; Provides access to the Open Library API
 
-(use-module '{webtools texttools ezrecords parsetime logger})
+(use-module '{webtools texttools ezrecords text/parsetime logger})
 
 (module-export!
  '{olib

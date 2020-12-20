@@ -1,11 +1,11 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'codewalker)
 
 ;;; Walks code for a variety of purposes
 
-(use-module 'reflection)
+(use-module 'kno/reflect)
 
 (define codewalkers (make-hashtable))
 

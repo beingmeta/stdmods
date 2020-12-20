@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2006-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2006-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'xtags)
 
-(use-module '{webtools texttools reflection})
+(use-module '{webtools texttools kno/reflect})
 (use-module '{varconfig ezrecords})
 (use-module '{brico brico/lookup brico/dterms})
 (use-module '{knodules})

@@ -1,12 +1,12 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'domutils/localize)
 
 ;;; Utilites for manipulating parsed XML in terms of the XHTML DOM
 
-(use-module '{webtools texttools regex reflection domutils aws/s3
-	      varconfig savecontent gpath logger mimetable})
+(use-module '{webtools texttools regex kno/reflect domutils aws/s3
+	      varconfig gpath logger net/mimetable})
 
 (define-init %loglevel %notice%)
 ;;(set! %loglevel %info%)

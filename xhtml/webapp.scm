@@ -1,6 +1,6 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved
 
 (in-module 'xhtml/webapp)
 
@@ -8,7 +8,7 @@
 
 (define version "$Id$")
 
-(use-module '{webtools xhtml texttools reflection})
+(use-module '{webtools xhtml texttools kno/reflect})
 (use-module '{varconfig rulesets logger})
 (use-module '{xhtml/auth xhtml/openid})
 

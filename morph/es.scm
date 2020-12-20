@@ -2,11 +2,11 @@
 
 ;; Spanish Morphology
 ;;  Copyright (C) 2001 Kenneth Haase. All Rights Reserved
-;;  Copyright (C) 2001-2018 beingmeta, inc. All Rights Reserved
+;;  Copyright (C) 2001-2020 beingmeta, inc. All Rights Reserved
 
 (in-module 'morph/es)
 
-(use-module '{morph texttools})
+(use-module '{morph binio binio texttools})
 
 (module-export! '{noun-root verb-root adjective-root adverb-root known-names})
 

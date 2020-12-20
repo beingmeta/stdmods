@@ -1,13 +1,11 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 ;;; Core file for accessing Amazon Web Services
 (in-module 'google/drive)
 
-(use-module '{webtools oauth varconfig})
-(use-module 'google)
-
-(use-module '{google webtools texttools mimetable logger ezrecords oauth})
+(use-module '{webtools texttools logger ezrecords})
+(use-module '{net/oauth net/mimetable google varconfig})
 
 (define (gdrive-string loc (auth))
   (set! auth (gdrive-auth loc))

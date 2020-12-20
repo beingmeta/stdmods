@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'domutils/hyphenate)
 
-(use-module '{webtools xhtml texttools reflection ezrecords logger varconfig
+(use-module '{webtools xhtml texttools kno/reflect ezrecords logger varconfig
 	      domutils hyphenate})
 
 (module-export! '{dom/hyphenate!})

@@ -1,11 +1,11 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'textindex)
 
 ;;; Module for simple text analysis, including morphrules and
 ;;;  reference point extraction
-(use-module '{texttools logger reflection})
+(use-module '{texttools logger kno/reflect binio})
 
 ;;; Some terminology
 ;;;  In the code below,
