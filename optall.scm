@@ -22,29 +22,29 @@
 	 (optimize-module! mod)))))
 
 (check-modules '{cachequeue calltrack checkurl codewalker
-		 couchdb curlcache dopool dropbox ellipsize
-		 email sqloids ezrecords fakezip fifo fillin
-		 findcycles getcontent gpath gravatar gutdb
+		 couchdb curlcache dopool apis/dropbox text/ellipsize
+		 net/email sqloids ezrecords fakezip fifo fillin
+		 findcycles getcontent gpath apis/gravatar gutdb
 		 hashfs hashstats zipfs histogram hostinfo i18n
-		 ice isbn jsonout logctl logger
-		 meltcache mimeout mimetable
-		 mttools oauth openlibrary ;; optimize
-		 opts packetfns parsetime bugjar
-		 pump readcsv rulesets samplefns
-		 savecontent saveopt signature speling ;; soap
-		 stringfmts tinygis tracer trackrefs twilio
-		 updatefile usedb varconfig whocalls ximage})
+		 ice isbn json/export logctl logger
+		 kno/meltcache net/mimeout net/mimetable
+		 kno/mttools net/oauth openlibrary ;; optimize
+		 opts kno/packetfns parsetime bugjar
+		 pump readcsv kno/rulesets samplefns
+		 savecontent saveopt crypto/signature speling ;; soap
+		 stringfmts tinygis tracer trackrefs apis/twilio
+		 updatefile varconfig whocalls imagick/ximage})
 
-(check-modules '{aws aws/v4 aws/roles
-		 aws/s3 aws/ses aws/simpledb aws/sqs 
-		 aws/associates aws/dynamodb})
+(check-modules '{apis/aws apis/aws/v4 apis/aws/roles
+		 apis/aws/s3 apis/aws/ses apis/aws/simpledb apis/aws/sqs 
+		 apis/aws/associates apis/aws/dynamodb})
 
 (check-modules '{domutils domutils/index domutils/localize
 		 domutils/styles domutils/css domutils/cleanup
 		 domutils/adjust domutils/analyze
 		 domutils/hyphenate})
 
-(check-modules '{facebook facebook/fbcall facebook/fbml})
+(check-modules '{apis/facebook apis/facebook/fbcall apis/facebook/fbml})
 
 (check-modules '{google google/drive})
 
@@ -53,7 +53,7 @@
 
 (check-modules '{misc/oidshift})
 
-(check-modules '{paypal paypal/checkout paypal/express paypal/adaptive})
+(check-modules '{apis/paypal apis/paypal/checkout apis/paypal/express apis/paypal/adaptive})
 
 (check-modules '{textindex textindex/domtext textindex/linkup})
 

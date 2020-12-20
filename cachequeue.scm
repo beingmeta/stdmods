@@ -1,5 +1,5 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'cachequeue)
 
@@ -12,7 +12,7 @@
 ;;;  cq/require gets a value from the cachequeue's cache or, if neccessary,
 ;;;   generates it and stores it in the cache.
 
-(use-module '{ezrecords meltcache fifo logger reflection})
+(use-module '{ezrecords kno/meltcache fifo logger kno/reflect})
 
 (define-init %loglevel %warning%)
 
@@ -22,8 +22,8 @@
    cachequeue? cqstep cqdaemon
    cq/prefetch})
 
-(define meltentry-creation (within-module 'meltcache meltentry-creation))
-(define meltentry-expiration (within-module 'meltcache meltentry-expiration))
+(define meltentry-creation (within-module 'kno/meltcache meltentry-creation))
+(define meltentry-expiration (within-module 'kno/meltcache meltentry-expiration))
 
 (define (doconsume method result)
   (if (null? method) result

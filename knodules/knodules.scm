@@ -1,5 +1,5 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'knodules)
 
@@ -7,7 +7,7 @@
 ;;; Provides data structures, core tables, and basic
 ;;;  KR functions
 
-(use-module '{texttools ezrecords varconfig logger reflection})
+(use-module '{binio texttools ezrecords varconfig logger kno/reflect})
 (use-module 'knodules/drules)
 
 (module-export!

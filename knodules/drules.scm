@@ -1,5 +1,5 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'knodules/drules)
 
@@ -8,7 +8,7 @@
 ;;;   like those produced by textindex
 
 (use-module '{texttools webtools ezrecords varconfig})
-(use-module '{knodules})
+(use-module '{knodules binio})
 
 (module-export!
  '{kno/drule

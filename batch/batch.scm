@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2016-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2016-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'batch)
 
-(use-module '{logger stringfmts varconfig slotindex storage/flex})
+(use-module '{logger text/stringfmts varconfig knodb/slotindex binio knodb})
 
 (define %volatile '{maxtime maxmem maxvmem maxload maxcount 
 		    saving last-save save-frequency

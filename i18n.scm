@@ -1,11 +1,11 @@
 ;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'i18n)
 
 ;;; Provides various kinds of internationalization support
 
-(use-module '{texttools reflection})
+(use-module '{texttools kno/reflect})
 
 (define default-language 'en)
 

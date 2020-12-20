@@ -4,7 +4,7 @@
 
 (in-module 'misc/opthash)
 
-(use-module '{ezstats crypto mttools logger varconfig})
+(use-module '{ezstats crypto kno/mttools logger varconfig})
 
 (module-export! '{random-object random-cons test-size sample-objects})
 

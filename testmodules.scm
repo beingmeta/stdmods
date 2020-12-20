@@ -1,5 +1,5 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc. All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved.
 
 (in-module 'testmodules)
 
@@ -11,18 +11,18 @@
 
 (define root-modules
   '{audit cachequeue calltrack checkurl codewalker
-    couchdb ctt curlcache dopool dropbox ellipsize email
+    couchdb ctt curlcache dopool apis/dropbox text/ellipsize net/email
     sqloids ezrecords fakezip fifo fillin findcycles getcontent
-    gpath gravatar gutdb hashfs hashstats histogram hostinfo i18n
-    ice jsonout logctl logger meltcache mergeutils mimeout ;;  lexml
-    mimetable mttools oauth openlibrary optimize opts
-    packetfns parsetime pump rdf readcsv recycle rss rulesets
-    samplefns savecontent saveopt signature speling ;; soap
+    gpath apis/gravatar gutdb hashfs hashstats histogram hostinfo i18n
+    ice json/export logctl logger kno/meltcache mergeutils net/mimeout ;;  lexml
+    net/mimetable kno/mttools net/oauth openlibrary optimize opts
+    kno/packetfns parsetime pump rdf readcsv recycle rss kno/rulesets
+    samplefns savecontent saveopt crypto/signature speling ;; soap
     stringfmts tinygis tracer trackrefs twilio updatefile ;; tighten
-    usedb varconfig whocalls xtags})
+    varconfig whocalls xtags})
 
 (define other-modules
-  '{(AWS AWS/S3 AWS/V4 AWS/SES AWS/SQS AWS/DYNAMODB
+  '{(AWS AWS/S3 APIS/AWS/V4 AWS/SES AWS/SQS AWS/DYNAMODB
 	 AWS/SIMPLEDB AWS/ASSOCIATES)
     (DOMUTILS DOMUTILS/CSS DOMUTILS/INDEX DOMUTILS/ADJUST DOMUTILS/STYLES
 	      DOMUTILS/ANALYZE DOMUTILS/CLEANUP DOMUTILS/LOCALIZE
@@ -30,9 +30,9 @@
     (BUGJAR)
     (KNODULES KNODULES/HTML KNODULES/DRULES KNODULES/DEFTERM
 	      KNODULES/USEBRICO KNODULES/PLAINTEXT)
-    (PAYPAL PAYPAL/EXPRESS PAYPAL/ADAPTIVE
-	    PAYPAL/CHECKOUT)
-    (FACEBOOK FACEBOOK/FBML FACEBOOK/FBCALL)
+    (APIS/PAYPAL APIS/PAYPAL/EXPRESS APIS/PAYPAL/ADAPTIVE
+	    APIS/PAYPAL/CHECKOUT)
+    (FACEBOOK FACEBOOK/FBML APIS/FACEBOOK/FBCALL)
     (TWITTER)
     (GOOGLE GOOGLE/DRIVE)
     (TEXTINDEX TEXTINDEX/DOMTEXT)
