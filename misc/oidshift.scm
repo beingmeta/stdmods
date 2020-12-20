@@ -1,11 +1,11 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'misc/oidshift)
 
 ;;; Moving OIDs around for big DB updates
 
-(use-module '{optimize mttools varconfig logger})
+(use-module '{optimize kno/mttools varconfig logger binio})
 
 (module-export! '{os/convert os/convert-oid os/convert-pool os/convert-file})
 

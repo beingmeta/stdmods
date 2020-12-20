@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'bench/threads)
 
-(use-module '{logger varconfig mttools optimize stringfmts reflection})
+(use-module '{logger varconfig kno/mttools optimize stringfmts kno/reflect})
 
 (module-export! '{tbench})
 

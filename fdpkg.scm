@@ -1,9 +1,9 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'fdpkg)
 
-(use-module '{webtools texttools logger reflection fileio})
+(use-module '{webtools texttools logger kno/reflect fileio})
 
 (module-export! '{fdpkg/link! fdpkg/info})
 

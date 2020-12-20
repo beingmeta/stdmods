@@ -27,17 +27,17 @@
 		 findcycles getcontent gpath gravatar gutdb
 		 hashfs hashstats zipfs histogram hostinfo i18n
 		 ice isbn jsonout logctl logger
-		 meltcache mimeout mimetable
-		 mttools oauth openlibrary ;; optimize
+		 meltcache mimeout net/mimetable
+		 kno/mttools oauth openlibrary ;; optimize
 		 opts packetfns parsetime bugjar
 		 pump readcsv rulesets samplefns
 		 savecontent saveopt signature speling ;; soap
 		 stringfmts tinygis tracer trackrefs twilio
 		 updatefile usedb varconfig whocalls ximage})
 
-(check-modules '{aws aws/v4 aws/roles
-		 aws/s3 aws/ses aws/simpledb aws/sqs 
-		 aws/associates aws/dynamodb})
+(check-modules '{apis/aws apis/aws/v4 apis/aws/roles
+		 apis/aws/s3 apis/aws/ses apis/aws/simpledb apis/aws/sqs 
+		 apis/aws/associates apis/aws/dynamodb})
 
 (check-modules '{domutils domutils/index domutils/localize
 		 domutils/styles domutils/css domutils/cleanup

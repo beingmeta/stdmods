@@ -1,12 +1,12 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
-;;; Copyright (C) 2005-2018 beingmeta, inc.  All rights reserved.
+;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
 
 (in-module 'hashfs)
 
 ;;; Virtual file system implemented on top of hashtables
 
-(use-module '{mimetable ezrecords texttools gpath})
-(define %used_modules '{ezrecords mimetable})
+(use-module '{net/mimetable ezrecords texttools gpath})
+(define %used_modules '{ezrecords net/mimetable})
 
 (module-export! '{hashfs? hashfs/open hashfs/save!
 		  hashfs/get hashfs/get+ hashfs/info
@@ -92,3 +92,22 @@
 	(dtype->packet (hashfs-files hashfs)))
       (error "This HASHFS doesn't have a source" hashfs)))
 
+;;;; GPATH handlers
+
+(define (gpath/info hashfs path (opts #f))
+  (hashfs/info hashfs path))
+(define (gpath/fetch hashfs path (opts #f))
+  (hashfs/get+ hashfs path))
+(define (gpath/content hashfs path (opts #f))
+  (hashfs/get hashfs path))
+(define (gpath/write! hashfs path content ctype (opts #f))
+  (default! ctype 
+    (getopt opts 'mimetype
+	    (path->mimetype
+	     path (if (packet? content) "application" "text"))))
+  (hashfs/save! hashfs path content ctype))
+
+(kno/handler! 'hashfs gpath/info)
+(kno/handler! 'hashfs gpath/fetch)
+(kno/handler! 'hashfs gpath/content)
+(kno/handler! 'hashfs gpath/write!)

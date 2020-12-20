@@ -3,7 +3,7 @@
 ;;; This generates data on the effectiveness of a hash function for
 ;;; different table sizes.
 
-(use-module '{misc/opthash optimize mttools logger})
+(use-module '{misc/opthash optimize kno/mttools logger})
 
 (optimize! 'misc/opthash)
 
@@ -35,6 +35,6 @@
     (dtype->file tests outfile)))
 
 (when (config 'optimize #t)
-  (optimize! '{misc/opthash mttools})
+  (optimize! '{misc/opthash kno/mttools})
   (optimize!))
 
