@@ -184,8 +184,8 @@
 	     (cached-content files zip path content opts)
 	     (fail)))))
 
-(define (zipfs/info zipfs path)
-  (zip-info zipfs (zipfs-zip zipfs) path #f))
+(define (zipfs/info zipfs path (opts #f))
+  (zip-info zipfs (zipfs-zip zipfs) path opts))
 
 (define (zipfs/list zipfs (prefix #f) (match #f))
   (let* ((paths (if prefix
@@ -235,16 +235,16 @@
 ;;;; GPATH handlers
 
 (define (gpath/info zipfs path (opts #f))
-  (zipfs-info zipfs path opts))
+  (zipfs/info zipfs path opts))
 (define (gpath/fetch zipfs path (opts #f))
-  (zipfs-get+ zipfs path opts))
+  (zipfs/get+ zipfs path opts))
 (define (gpath/content zipfs path (opts #f))
-  (zipfs-get zipfs path opts))
+  (zipfs/get zipfs path opts))
 (define (gpath/write! zipfs path content ctype (opts #f))
   (default! ctype 
     (getopt opts 'mimetype
 	    (path->mimetype
-	     path (if (packet? data) "application" "text"))))
+	     path (if (packet? content) "application" "text"))))
   (zipfs/save! zipfs path content ctype (getopt opts 'metadata #f)))
 (define (gpath/open path opts) (zipfs/open path opts))
 

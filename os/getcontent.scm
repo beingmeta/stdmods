@@ -1,7 +1,7 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 ;;; Copyright (C) 2005-2020 beingmeta, inc. All rights reserved.
 
-(in-module 'getcontent)
+(in-module 'os/getcontent)
 
 ;;; This handles automatic updating of the content of files
 ;;; It is a more flexible version of load-latest
