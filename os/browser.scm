@@ -3,7 +3,7 @@
 
 (in-module 'os/browser)
 
-(use-module '{logger varconfig gpath which aws/s3})
+(use-module '{logger varconfig gpath os/which aws/s3})
 
 (define %loglevel %info%)
 
