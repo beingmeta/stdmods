@@ -12,7 +12,7 @@
 (define root-modules
   '{audit cachequeue calltrack checkurl codewalker
     couchdb ctt curlcache dopool dropbox ellipsize email
-    sqloids ezrecords fakezip fifo fillin findcycles getcontent
+    sqloids ezrecords fakezip fifo fillin findcycles
     gpath gravatar gutdb hashfs hashstats histogram hostinfo i18n
     ice jsonout logctl logger meltcache mergeutils mimeout ;;  lexml
     net/mimetable kno/mttools oauth openlibrary optimize opts
