@@ -169,7 +169,7 @@
 		(begin
 		  (%debug "Waiting for active computation to resolve " call)
 		  (while (pair? (get pending call))
-		    (condvar-wait (cq-lock cq)))
+		    (condvar/wait (cq-lock cq)))
 		  (%debug "Call is no longer pending " call)
 		  (try (get pending call) (get cache cachekey)))
 		(begin
