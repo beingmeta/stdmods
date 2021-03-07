@@ -1,6 +1,6 @@
 ;;; -*- Mode: Scheme; Character-encoding: utf-8; -*-
 ;;; Copyright (C) 2005-2020 beingmeta, inc.  All rights reserved.
-;;; Copyright (C) 2020-2021 beingmeta, LLC
+;;; Copyright (C) 2020-2021 Kenneth Haase (ken.haase@alum.mit.edu)
 
 ;;; Uses the Kno option functions but caches the default value.
 (in-module 'saveopt)

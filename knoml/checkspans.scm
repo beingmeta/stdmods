@@ -4,8 +4,8 @@
 ;;;  on the sBooks site.
 ;;; Copyright (C) 2005-2015 beingmeta, inc.  All rights reserved.
 ;;; Copyright (C) 2020-2021 beingmeta, llc.
-;;; Copyright (C) 2020-2021 beingmeta, LLC
-;;; Copyright (C) 2020-2021 beingmeta, LLC
+;;; Copyright (C) 2020-2021 Kenneth Haase (ken.haase@alum.mit.edu)
+;;; Copyright (C) 2020-2021 Kenneth Haase (ken.haase@alum.mit.edu)
 
 ;;; This module defines KNOML handlers
 
