@@ -8,8 +8,9 @@
 
 (module-export! '{fibr fibi fibix fibflt factr facti slowfib fibwhile})
 (module-export! '{fibr/random fibi/random fibix/random fibflt/random})
-(module-export! '{balancer})
+(module-export! '{balancer nested-balancer})
 (module-export! '{ack tak takflt})
+(module-export! '{fib-iter balance-iter nested-balance-iter})
 (module-export! 'spectral-norm)
 (module-export! 'square)
 
@@ -62,6 +63,16 @@
       (balance-iter (-1+ i) (1+ up) (1+ down))))
 (define (balancer n)
   (if (= n 0) 0 (balance-iter n 0 0)))
+
+;;; Nested balancer
+
+(define (nested-balance-iter i up down)
+  (let ((one 1) 
+	(next (- up down)))
+    (if (= i one) next
+	(nested-balance-iter (-1+ i) (1+ up) (1+ down)))))
+(define (nested-balancer n)
+  (if (= n 0) 0 (nested-balance-iter n 0 0)))
 
 ;;; Factorial
 
