@@ -4,7 +4,7 @@
 
 ;;; Provides access to the Open Library API
 
-(use-module '{webtools texttools ezrecords logger fileio})
+(use-module '{webtools texttools ezrecords logger fileio kno/exec})
 
 (module-export! '{fz/open fz/add! fz/update! fz/close})
 
