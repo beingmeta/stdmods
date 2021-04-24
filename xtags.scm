@@ -4,7 +4,7 @@
 
 (in-module 'xtags)
 
-(use-module '{webtools texttools kno/reflect})
+(use-module '{webtools texttools reflection})
 (use-module '{varconfig ezrecords})
 (use-module '{brico brico/lookup brico/dterms})
 (use-module '{knodules})

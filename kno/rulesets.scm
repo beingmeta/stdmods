@@ -55,16 +55,17 @@
      the object to be added.\n\
      If the rule list is false, it is taken as '() so the result is the \
      list of the single rule."
-
-    (let ((rulevar (get-arg ruleconfigexpr 1))
-	  (ruleconverter (get-arg ruleconfigexpr 2 #f)))
-      `(sambda (var (value))
+    (let* ((rulevar (get-arg ruleconfigexpr 1))
+	   (ruleconverter (get-arg ruleconfigexpr 2 #f))
+	   (fname (string->symbol (glom rulevar "-ruleset-config"))))
+      `(nsyncfn (,fname var (value))
+	 [synchronized #t]
 	 (if (not (bound? value)) ,rulevar
 	     (set! ,rulevar
-		   (,ruleset+ ,(if ruleconverter 
-				   `(,ruleconverter value)
-				   'value)
-			      ,rulevar)))))))
+	       (,ruleset+ ,(if ruleconverter 
+			       `(,ruleconverter value)
+			       'value)
+			  ,rulevar)))))))
 (define ruleconfig!
   (macro expr
     (let ((confname (cadr expr))

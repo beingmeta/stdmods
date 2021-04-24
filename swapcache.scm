@@ -4,7 +4,7 @@
 
 (in-module 'swapcache)
 
-(use-module '{kno/reflect ezrecords logger varconfig})
+(use-module '{reflection ezrecords logger varconfig})
 
 (module-export!
  '{swc/make swc/get swc/modtime

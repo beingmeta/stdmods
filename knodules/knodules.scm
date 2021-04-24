@@ -8,7 +8,7 @@
 ;;; Provides data structures, core tables, and basic
 ;;;  KR functions
 
-(use-module '{binio texttools ezrecords varconfig logger kno/reflect})
+(use-module '{binio texttools ezrecords varconfig logger reflection})
 (use-module 'knodules/drules)
 
 (module-export!
@@ -106,7 +106,7 @@
   (set! knodule-slots-initialized #t))
 
 (define-init tryget
-  (def (tryget table key) (try (get table key) key)))
+  (defn (tryget table key) (try (get table key) key)))
 
 (define kno/slotid
   (macro expr

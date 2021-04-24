@@ -4,7 +4,7 @@
 
 (in-module 'fdpkg)
 
-(use-module '{webtools texttools logger kno/reflect fileio})
+(use-module '{webtools texttools logger reflection fileio})
 
 (module-export! '{fdpkg/link! fdpkg/info})
 

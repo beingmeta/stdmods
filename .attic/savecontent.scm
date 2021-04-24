@@ -16,7 +16,7 @@
        (define (zipfile? x) #f)
        (define (zip/add! . args) #f)))
 
-(use-module '{fileio aws/s3 varconfig logger webtools kno/reflect
+(use-module '{fileio aws/s3 varconfig logger webtools reflection
 	      texttools net/mimetable})
 
 (define-init %loglevel %info%)

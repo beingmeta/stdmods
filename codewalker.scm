@@ -6,7 +6,7 @@
 
 ;;; Walks code for a variety of purposes
 
-(use-module 'kno/reflect)
+(use-module 'reflection)
 
 (define codewalkers (make-hashtable))
 

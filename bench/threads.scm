@@ -4,7 +4,7 @@
 
 (in-module 'bench/threads)
 
-(use-module '{logger varconfig kno/mttools optimize stringfmts kno/reflect})
+(use-module '{logger varconfig kno/mttools optimize stringfmts reflection})
 
 (module-export! '{tbench})
 

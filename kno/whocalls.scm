@@ -6,7 +6,7 @@
 
 ;;; Code analyzer for Kno language
 
-(use-module '{kno/reflect codewalker ezrecords})
+(use-module '{reflection codewalker ezrecords})
 
 (module-export!
  '{get-whocalls

@@ -5,7 +5,7 @@
 (in-module 'imagick/ximage)
 
 (use-module '{webtools texttools imagick gpath aws/s3 opts
-	      kno/reflect varconfig logger})
+	      reflection varconfig logger})
 
 (define-init %loglevel %notice%)
 (varconfig! ximage:loglevel %loglevel)

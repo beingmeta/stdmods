@@ -6,7 +6,7 @@
 
 ;;; Provides various kinds of internationalization support
 
-(use-module '{texttools kno/reflect})
+(use-module '{texttools reflection})
 
 (define default-language 'en)
 

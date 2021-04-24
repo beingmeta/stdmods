@@ -13,7 +13,7 @@
 ;;;  cq/require gets a value from the cachequeue's cache or, if neccessary,
 ;;;   generates it and stores it in the cache.
 
-(use-module '{ezrecords kno/meltcache fifo logger kno/reflect})
+(use-module '{ezrecords kno/meltcache fifo logger reflection})
 
 (define-init %loglevel %warning%)
 

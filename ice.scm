@@ -35,7 +35,7 @@
 
 (in-module 'ice)
 
-(use-module '{kno/reflect logger})
+(use-module '{reflection logger})
 
 (module-export! '{ice/freeze ice/thaw})
 

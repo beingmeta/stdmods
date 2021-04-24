@@ -4,7 +4,7 @@
 
 (in-module 'kno/meltcache)
 
-(use-module '{kno/reflect ezrecords logger})
+(use-module '{reflection ezrecords logger})
 
 ;;; Meltcaches are caches whose values decay selectively, so that
 ;;;  fast changing values decay more quickly and slower changing values

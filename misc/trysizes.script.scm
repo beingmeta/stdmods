@@ -36,5 +36,5 @@
 
 (when (config 'optimize #t)
   (optimize! '{misc/opthash kno/mttools})
-  (optimize!))
+  (optimize-locals!))
 
