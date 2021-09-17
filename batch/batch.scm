@@ -216,9 +216,9 @@
 	   (thread/wait threads)
 	   (lognotice |BatchSave| 
 	     "Writing out current state to " (get state 'statefile))
-	   (when post-save (post-save state-copy))
 	   (let* ((state-copy (eval4 (deep-copy state)))
 		  (totals (get state-copy 'totals)))
+	     (when post-save (post-save state-copy))
 	     (store! state-copy 'pools
 		     (pool-source (get state-copy 'pools)))
 	     (store! state-copy 'indexes
@@ -283,14 +283,14 @@
     (thread/wait threads)
     (logwarn |BatchSave| 
       "Writing out processing state to " (get state 'statefile))
-    (when post-save (post-save state-copy))
     (do-choices (slot (getkeys (get state 'totals)))
       (when (test state slot)
 	(store! (get state 'totals) slot 
 		(+ (get (get state 'totals) slot)
 		   (get state slot)))
 	(store! state slot 0)))
-    (let ((state-copy (eval6 (deep-copy state))))
+    (let ((state-copy (deep-copy state)))
+      (when post-save (post-save state-copy))
       (store! state-copy 'pools
 	      (pool-source (get state-copy 'pools)))
       (store! state-copy 'indexes
