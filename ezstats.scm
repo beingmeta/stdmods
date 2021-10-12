@@ -20,6 +20,7 @@
    (cond ((not fn) vec)
 	 ((applicable? fn) (forseq (v vec) (fn v)))
 	 ((table? fn) (forseq (v vec) (get fn v)))
+	 ((slotid? fn) (forseq (v vec) (get v fn)))
 	 (else (irritant fn |InvalidFunction|)))))
 (defambda (stddev x (fn #f) (vec))
   (set! vec
@@ -30,6 +31,7 @@
 	 (cond ((not fn) vec)
 	       ((applicable? fn) (forseq (v vec) (fn v)))
 	       ((table? fn) (forseq (v vec) (get fn v)))
+	       ((slotid? fn) (forseq (v vec) (get v fn)))
 	       (else (irritant fn |InvalidFunction|))))))
 ;;; Arithmetic functions
 
